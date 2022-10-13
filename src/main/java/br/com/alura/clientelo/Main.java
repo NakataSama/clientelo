@@ -1,5 +1,8 @@
 package br.com.alura.clientelo;
 
+import br.com.alura.clientelo.pedido.Pedido;
+import br.com.alura.clientelo.processador.ProcessadorDeCsv;
+import br.com.alura.clientelo.relatorio.impl.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,23 +10,17 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
-import java.util.Scanner;
 
 public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException, URISyntaxException {
-        Pedido[] pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
-
+        List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
 
         int totalDeProdutosVendidos = 0;
         int totalDePedidosRealizados = 0;
@@ -34,8 +31,8 @@ public class Main {
         String[] categoriasProcessadas = new String[10];
         int totalDeCategorias = 0;
 
-        for (int i = 0; i < pedidos.length; i++) {
-            Pedido pedidoAtual = pedidos[i];
+        for (int i = 0; i < pedidos.size(); i++) {
+            Pedido pedidoAtual = pedidos.get(i);
 
             if (pedidoAtual == null) {
                 break;
@@ -84,5 +81,16 @@ public class Main {
         logger.info("PEDIDO MAIS BARATO: {} ({})", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(pedidoMaisBarato.getPreco().multiply(new BigDecimal(pedidoMaisBarato.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN)), pedidoMaisBarato.getProduto());
         logger.info("PEDIDO MAIS CARO: {} ({})\n", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(pedidoMaisCaro.getPreco().multiply(new BigDecimal(pedidoMaisCaro.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN)), pedidoMaisCaro.getProduto());
         logger.info("### FIM DO RELATÓRIO ###");
+
+        VendasPorCategoria vendasPorCategoria = new VendasPorCategoria();
+        ProdutosMaisVendidos produtosMaisVendidos = new ProdutosMaisVendidos();
+        ProdutosMaisCarosPorCategoria produtosMaisCarosPorCategoria = new ProdutosMaisCarosPorCategoria();
+        ClientesFieis clientesFieis = new ClientesFieis();
+        ClientesMaisLucrativos clientesMaisLucrativos = new ClientesMaisLucrativos();
+        vendasPorCategoria.executa(pedidos);
+        produtosMaisVendidos.executa(pedidos);
+        produtosMaisCarosPorCategoria.executa(pedidos);
+        clientesFieis.executa(pedidos);
+        clientesMaisLucrativos.executa(pedidos);
     }
 }

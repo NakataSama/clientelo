@@ -1,4 +1,4 @@
-package br.com.alura.clientelo;
+package br.com.alura.clientelo.pedido;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -53,7 +53,7 @@ public class Pedido {
                 "categoria='" + categoria + '\'' +
                 ", produto='" + produto + '\'' +
                 ", cliente='" + cliente + '\'' +
-                ", preco=" + preco +
+                ", preco=" + "R$ "+ preco +
                 ", quantidade=" + quantidade +
                 ", data=" + data +
                 '}';
