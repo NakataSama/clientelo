@@ -1,44 +1,64 @@
 package br.com.alura.clientelo.relatorio.impl;
 
-import br.com.alura.clientelo.Main;
 import br.com.alura.clientelo.pedido.Pedido;
 import br.com.alura.clientelo.relatorio.Relatorio;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import br.com.alura.clientelo.relatorio.resultado.impl.ResultadoClientesMaisLucrativos;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ClientesMaisLucrativos implements Relatorio {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    Comparator<Pedido> comparadorDeMontante = (o1, o2) -> o2.getPreco().multiply(BigDecimal.valueOf(o2.getQuantidade()))
+            .compareTo(o1.getPreco().multiply(BigDecimal.valueOf(o1.getQuantidade())));
 
-    private BigDecimal montante = BigDecimal.ZERO;
+    public static class Informacao {
 
-    private Integer numeroDePedidos = 0;
+        private final Integer numeroDePedidos;
+        private final BigDecimal montante;
+
+        public Informacao(Integer numeroDePedidos, BigDecimal montante) {
+            this.numeroDePedidos = numeroDePedidos;
+            this.montante = montante;
+        }
+
+        public Integer getNumeroDePedidos() {
+            return numeroDePedidos;
+        }
+
+        public BigDecimal getMontante() {
+            return montante;
+        }
+    }
+
     @Override
-    public void executa(List<Pedido> pedidos) {
-        logger.info("##### RELATÓRIO DE CLIENTES MAIS LUCRATIVOS ##### \n");
-        List<String> clientes = pedidos.stream()
-                                    .map(Pedido::getCliente)
-                                    .distinct()
-                                    .sorted()
-                                    .toList();
+    public ResultadoClientesMaisLucrativos processar(List<Pedido> pedidos) {
+
+        LinkedHashMap<String, Informacao> resultado = new LinkedHashMap<>();
+
+        Stream<String> clientes = pedidos.stream()
+                .sorted(comparadorDeMontante)
+                .map(Pedido::getCliente)
+                .distinct();
 
         clientes.forEach(cliente -> {
+
             List<Pedido> pedidosPorCliente = pedidos.stream()
                     .filter(pedido -> pedido.getCliente().equals(cliente))
                     .toList();
 
-            numeroDePedidos = pedidosPorCliente.size();
+            Integer numeroDePedidos = pedidosPorCliente.size();
 
-            montante = pedidosPorCliente.stream()
+            BigDecimal montante = pedidosPorCliente.stream()
                     .map(pedido -> pedido.getPreco().multiply(BigDecimal.valueOf(pedido.getQuantidade())))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-            logger.info("NOME: {}", cliente);
-            logger.info("Nº DE PEDIDOS: {}", numeroDePedidos);
-            logger.info("MONTANTE GASTO: {} \n", montante);
+            resultado.put(cliente, new Informacao(numeroDePedidos, montante));
         });
+
+        return new ResultadoClientesMaisLucrativos(resultado);
     }
 }
