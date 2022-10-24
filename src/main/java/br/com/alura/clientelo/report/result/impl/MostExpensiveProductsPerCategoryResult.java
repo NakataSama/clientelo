@@ -6,7 +6,7 @@ import br.com.alura.clientelo.util.CurrencyFormatter;
 
 import java.util.LinkedHashMap;
 
-public class MostExpensiveProductsPerCategoryResult implements Result<MostExpensiveProductsPerCategory> {
+public class MostExpensiveProductsPerCategoryResult implements Result {
 
     private final LinkedHashMap<String, MostExpensiveProductsPerCategory.Information> result;
     public MostExpensiveProductsPerCategoryResult(LinkedHashMap<String, MostExpensiveProductsPerCategory.Information> result) {

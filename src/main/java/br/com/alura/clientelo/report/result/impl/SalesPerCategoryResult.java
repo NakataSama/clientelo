@@ -5,7 +5,7 @@ import br.com.alura.clientelo.util.CurrencyFormatter;
 
 import java.util.LinkedHashMap;
 
-public class SalesPerCategoryResult implements Result<br.com.alura.clientelo.report.impl.SalesPerCategory> {
+public class SalesPerCategoryResult implements Result {
 
     LinkedHashMap<String, br.com.alura.clientelo.report.impl.SalesPerCategory.Information> result;
 

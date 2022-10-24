@@ -6,6 +6,5 @@ import br.com.alura.clientelo.report.result.Result;
 import java.util.List;
 
 public interface Report {
-
-    Result process(List<Order> orders);
+    Result process(List<Order> orders, Integer limiter);
 }

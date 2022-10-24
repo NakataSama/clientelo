@@ -2,6 +2,7 @@ package br.com.alura.clientelo.report.impl;
 
 import br.com.alura.clientelo.order.Order;
 import br.com.alura.clientelo.report.Report;
+import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.MostProfitableCustomersResult;
 
 import java.math.BigDecimal;
@@ -16,14 +17,20 @@ public class MostProfitableCustomers implements Report {
     public record Information(Integer numberOfOrders, BigDecimal totalAmount) { }
 
     @Override
-    public MostProfitableCustomersResult process(List<Order> orders) {
+    public Result process(List<Order> orders, Integer customerLimit) {
 
         LinkedHashMap<String, Information> result = new LinkedHashMap<>();
+
+        long customerCount = orders.stream()
+                .map(Order::getCustomer)
+                .distinct()
+                .count();
 
         Stream<String> customers = orders.stream()
                 .sorted(comparing(Order::getTotalAmount).reversed())
                 .map(Order::getCustomer)
-                .distinct();
+                .distinct()
+                .limit(customerLimit != null ? customerLimit : customerCount);
 
         customers.forEach(customer -> {
 

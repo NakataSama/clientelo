@@ -2,6 +2,7 @@ package br.com.alura.clientelo.report.impl;
 
 import br.com.alura.clientelo.order.Order;
 import br.com.alura.clientelo.report.Report;
+import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.SalesPerCategoryResult;
 
 import java.math.BigDecimal;
@@ -14,13 +15,19 @@ public class SalesPerCategory implements Report {
     public record Information(Integer numberOfOrders, BigDecimal totalAmount) { }
 
     @Override
-    public SalesPerCategoryResult process(List<Order> orders) {
+    public Result process(List<Order> orders, Integer categoryLimit) {
 
         LinkedHashMap<String, Information> result = new LinkedHashMap<>();
+
+        long categoryCount = orders.stream()
+                .map(Order::getCategory)
+                .distinct()
+                .count();
 
         Stream<String> categories = orders.stream()
                 .map(Order::getCategory)
                 .distinct()
+                .limit(categoryLimit != null ? categoryLimit : categoryCount)
                 .sorted();
 
         categories.forEach(category -> {
@@ -29,7 +36,9 @@ public class SalesPerCategory implements Report {
                     .filter(order -> order.getCategory().equals(category))
                     .toList();
 
-            Integer numberOfOrders = ordersPerCategory.size();
+            Integer numberOfOrders = ordersPerCategory.stream()
+                    .map(Order::getQuantity)
+                    .reduce(0, Integer::sum);
 
             BigDecimal totalAmount = ordersPerCategory.stream()
                     .map(Order::getTotalAmount)

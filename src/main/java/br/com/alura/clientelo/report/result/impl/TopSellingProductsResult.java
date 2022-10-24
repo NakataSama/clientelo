@@ -1,12 +1,11 @@
 package br.com.alura.clientelo.report.result.impl;
 
 import br.com.alura.clientelo.order.Order;
-import br.com.alura.clientelo.report.impl.TopSellingProducts;
 import br.com.alura.clientelo.report.result.Result;
 
 import java.util.List;
 
-public class TopSellingProductsResult implements Result<TopSellingProducts> {
+public class TopSellingProductsResult implements Result {
 
     private final List<Order> result;
 

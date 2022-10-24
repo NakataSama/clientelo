@@ -5,7 +5,7 @@ import br.com.alura.clientelo.report.result.Result;
 
 import java.util.LinkedHashMap;
 
-public class LoyalCustomersResult implements Result<LoyalCustomers> {
+public class LoyalCustomersResult implements Result {
 
     private final LinkedHashMap<String, Integer> result;
 

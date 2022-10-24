@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencsv.CSVReader;
 
 import java.io.Reader;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -13,36 +14,29 @@ import java.util.List;
 
 public class DataProcessor {
 
-    public static List<Order> processCsv(String file) {
-
-        List<Order> result = new ArrayList<>();
-
+    public static List<Order> processCsv(URL file) {
         try {
-            Reader reader = Files.newBufferedReader(Path.of(ClassLoader.getSystemResource(file).toURI()));
+            Reader reader = Files.newBufferedReader(Path.of(file.toURI()));
             CSVReader csvReader = new CSVReader(reader);
 
-            result = OrderParser.parse(csvReader.readAll());
-            return result;
+            return OrderParser.parse(csvReader.readAll());
 
         } catch (Exception e){
             e.printStackTrace();
         }
-        return result;
+        return new ArrayList<>();
     }
 
-    public static List<Order> processJson(String file) {
-
-        List<Order> result = new ArrayList<>();
+    public static List<Order> processJson(URL file) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
 
         try {
-            result = List.of(objectMapper.readValue(ClassLoader.getSystemResource(file), Order[].class));
-            return result;
-        } catch (Exception e){
+            return List.of(objectMapper.readValue(file, Order[].class));
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return new ArrayList<>();
     }
 
 }

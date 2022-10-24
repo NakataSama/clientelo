@@ -2,6 +2,7 @@ package br.com.alura.clientelo.report.impl;
 
 import br.com.alura.clientelo.order.Order;
 import br.com.alura.clientelo.report.Report;
+import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.LoyalCustomersResult;
 
 import java.util.LinkedHashMap;
@@ -13,13 +14,19 @@ import static java.util.stream.Collectors.toMap;
 public class LoyalCustomers implements Report {
 
     @Override
-    public LoyalCustomersResult process(List<Order> orders) {
+    public Result process(List<Order> orders, Integer customerLimit) {
 
         LinkedHashMap<String, Integer> result;
+
+        long customerCount = orders.stream()
+                .map(Order::getCustomer)
+                .distinct()
+                .count();
 
         Stream<String> customers = orders.stream()
                 .map(Order::getCustomer)
                 .distinct()
+                .limit(customerLimit != null ? customerLimit : customerCount)
                 .sorted();
 
         result = customers.collect(toMap(customer -> customer, customer -> orders.stream()

@@ -2,11 +2,11 @@ package br.com.alura.clientelo.report.impl;
 
 import br.com.alura.clientelo.order.Order;
 import br.com.alura.clientelo.report.Report;
+import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.GeneralReportResult;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 
@@ -20,7 +20,9 @@ public class GeneralReport implements Report {
                               Map<String, BigDecimal> mostProfitableOrder) { }
 
     @Override
-    public GeneralReportResult process(List<Order> orders) {
+    public Result process(List<Order> orders, Integer orderLimit) {
+
+        if(orderLimit != null) orders = orders.stream().limit(orderLimit).toList();
 
         Integer numberOfOrders = orders.size();
 

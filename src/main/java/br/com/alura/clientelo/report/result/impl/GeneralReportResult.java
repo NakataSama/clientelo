@@ -6,7 +6,7 @@ import br.com.alura.clientelo.util.CurrencyFormatter;
 
 import java.math.BigDecimal;
 
-public class GeneralReportResult implements Result<GeneralReport> {
+public class GeneralReportResult implements Result {
 
     private final GeneralReport.Information result;
     public GeneralReportResult(GeneralReport.Information result) {

@@ -1,47 +1,36 @@
 package br.com.alura.clientelo;
 
-import br.com.alura.clientelo.order.Order;
-import br.com.alura.clientelo.dataprocessor.DataProcessor;
-import br.com.alura.clientelo.report.impl.*;
-import br.com.alura.clientelo.report.result.impl.*;
-import br.com.alura.clientelo.report.result.impl.SalesPerCategoryResult;
+import br.com.alura.clientelo.report.builder.Director;
+import br.com.alura.clientelo.report.builder.ReportBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-//        List<Order> orders = DataProcessor.processCsv("pedidos.csv");
-        List<Order> orders = DataProcessor.processJson("pedidos.json");
 
-        GeneralReport generalReport = new GeneralReport();
-        SalesPerCategory salesPerCategory = new SalesPerCategory();
-        TopSellingProducts topSellingProducts = new TopSellingProducts();
-        MostExpensiveProductsPerCategory mostExpensiveProductsPerCategory = new MostExpensiveProductsPerCategory();
-        LoyalCustomers loyalCustomers = new LoyalCustomers();
-        MostProfitableCustomers mostProfitableCustomers = new MostProfitableCustomers();
+        Director director = new Director();
+        ReportBuilder builder = new ReportBuilder();
 
-        GeneralReportResult generalReportResult = generalReport.process(orders);
-        System.out.println(generalReportResult.generateText());
+        director.constructGeneralReport(builder);
+        System.out.println(builder.build());
 
-        SalesPerCategoryResult salesPerCategoryResult = salesPerCategory.process(orders);
-        System.out.println(salesPerCategoryResult.generateText());
+        director.constructLoyalCustomers(builder);
+        System.out.println(builder.build());
 
-        TopSellingProductsResult topSellingProductsResult = topSellingProducts.process(orders);
-        System.out.println(topSellingProductsResult.generateText());
+        director.constructMostExpensveProductsPerCategory(builder);
+        System.out.println(builder.build());
 
-        MostExpensiveProductsPerCategoryResult mostExpensiveProductsPerCategoryResult = mostExpensiveProductsPerCategory.process(orders);
-        System.out.println(mostExpensiveProductsPerCategoryResult.generateText());
+        director.constructMostProfitableCustomers(builder);
+        System.out.println(builder.build());
 
-        LoyalCustomersResult loyalCustomersResult = loyalCustomers.process(orders);
-        System.out.println(loyalCustomersResult.generateText());
+        director.constructsalesPerCategory(builder);
+        System.out.println(builder.build());
 
-        MostProfitableCustomersResult mostProfitableCustomersResult = mostProfitableCustomers.process(orders);
-        System.out.println(mostProfitableCustomersResult.generateText());
+        director.constructTopSellingProducs(builder);
+        System.out.println(builder.build());
     }
 }
 

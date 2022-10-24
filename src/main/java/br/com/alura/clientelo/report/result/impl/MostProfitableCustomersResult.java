@@ -6,7 +6,7 @@ import br.com.alura.clientelo.util.CurrencyFormatter;
 
 import java.util.LinkedHashMap;
 
-public class MostProfitableCustomersResult implements Result<MostProfitableCustomers> {
+public class MostProfitableCustomersResult implements Result {
 
     private final LinkedHashMap<String, MostProfitableCustomers.Information> result;
 
