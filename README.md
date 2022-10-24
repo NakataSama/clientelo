@@ -1,6 +1,6 @@
 # ClientELO
 
-## Informações gerais dos pedidos em _pedidos.csv_
+## Informações gerais dos orders em _pedidos.csv_
 - Campos: **CATEGORIA, PRODUTO, PREÇO, QUANTIDADE, DATA, CLIENTE**
 
 

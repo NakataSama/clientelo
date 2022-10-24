@@ -1,9 +1,10 @@
 package br.com.alura.clientelo;
 
-import br.com.alura.clientelo.pedido.Pedido;
-import br.com.alura.clientelo.processador.ProcessadorDeCsv;
-import br.com.alura.clientelo.relatorio.impl.*;
-import br.com.alura.clientelo.relatorio.resultado.impl.*;
+import br.com.alura.clientelo.order.Order;
+import br.com.alura.clientelo.dataprocessor.DataProcessor;
+import br.com.alura.clientelo.report.impl.*;
+import br.com.alura.clientelo.report.result.impl.*;
+import br.com.alura.clientelo.report.result.impl.SalesPerCategoryResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,32 +15,33 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
+//        List<Order> orders = DataProcessor.processCsv("pedidos.csv");
+        List<Order> orders = DataProcessor.processJson("pedidos.json");
 
-        ValoresTotais valoresTotais = new ValoresTotais();
-        VendasPorCategoria vendasPorCategoria = new VendasPorCategoria();
-        ProdutosMaisVendidos produtosMaisVendidos = new ProdutosMaisVendidos();
-        ProdutosMaisCarosPorCategoria produtosMaisCarosPorCategoria = new ProdutosMaisCarosPorCategoria();
-        ClientesFieis clientesFieis = new ClientesFieis();
-        ClientesMaisLucrativos clientesMaisLucrativos = new ClientesMaisLucrativos();
+        GeneralReport generalReport = new GeneralReport();
+        SalesPerCategory salesPerCategory = new SalesPerCategory();
+        TopSellingProducts topSellingProducts = new TopSellingProducts();
+        MostExpensiveProductsPerCategory mostExpensiveProductsPerCategory = new MostExpensiveProductsPerCategory();
+        LoyalCustomers loyalCustomers = new LoyalCustomers();
+        MostProfitableCustomers mostProfitableCustomers = new MostProfitableCustomers();
 
-        ResultadoValoresTotais resultadoValoresTotais = valoresTotais.processar(pedidos);
-        System.out.println(resultadoValoresTotais.gerarRelatorioEmTexto());
+        GeneralReportResult generalReportResult = generalReport.process(orders);
+        System.out.println(generalReportResult.generateText());
 
-        ResultadoVendasPorCategoria resultadoVendasPorCategoria = vendasPorCategoria.processar(pedidos);
-        System.out.println(resultadoVendasPorCategoria.gerarRelatorioEmTexto());
+        SalesPerCategoryResult salesPerCategoryResult = salesPerCategory.process(orders);
+        System.out.println(salesPerCategoryResult.generateText());
 
-        ResultadoProdutosMaisVendidos resultadoProdutosMaisVendidos = produtosMaisVendidos.processar(pedidos);
-        System.out.println(resultadoProdutosMaisVendidos.gerarRelatorioEmTexto());
+        TopSellingProductsResult topSellingProductsResult = topSellingProducts.process(orders);
+        System.out.println(topSellingProductsResult.generateText());
 
-        ResultadoProdutosMaisCarosPorCategoria resultadoProdutosMaisCarosPorCategoria = produtosMaisCarosPorCategoria.processar(pedidos);
-        System.out.println(resultadoProdutosMaisCarosPorCategoria.gerarRelatorioEmTexto());
+        MostExpensiveProductsPerCategoryResult mostExpensiveProductsPerCategoryResult = mostExpensiveProductsPerCategory.process(orders);
+        System.out.println(mostExpensiveProductsPerCategoryResult.generateText());
 
-        ResultadoClientesFieis resultadoClientesFieis = clientesFieis.processar(pedidos);
-        System.out.println(resultadoClientesFieis.gerarRelatorioEmTexto());
+        LoyalCustomersResult loyalCustomersResult = loyalCustomers.process(orders);
+        System.out.println(loyalCustomersResult.generateText());
 
-        ResultadoClientesMaisLucrativos resultadoClientesMaisLucrativos = clientesMaisLucrativos.processar(pedidos);
-        System.out.println(resultadoClientesMaisLucrativos.gerarRelatorioEmTexto());
+        MostProfitableCustomersResult mostProfitableCustomersResult = mostProfitableCustomers.process(orders);
+        System.out.println(mostProfitableCustomersResult.generateText());
     }
 }
 
