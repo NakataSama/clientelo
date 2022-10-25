@@ -8,10 +8,10 @@ import java.util.LinkedHashMap;
 
 public class MostProfitableCustomersResult implements Result {
 
-    private final LinkedHashMap<String, MostProfitableCustomers.Information> result;
+    private final LinkedHashMap<String, MostProfitableCustomers.Information> information;
 
-    public MostProfitableCustomersResult(LinkedHashMap<String, MostProfitableCustomers.Information> result) {
-        this.result = result;
+    public MostProfitableCustomersResult(LinkedHashMap<String, MostProfitableCustomers.Information> information) {
+        this.information = information;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class MostProfitableCustomersResult implements Result {
         response.append("##### RELATÓRIO DE CLIENTES MAIS LUCRATIVOS ##### \n");
         response.append("\n");
 
-        result.forEach((customer, information) -> {
+        information.forEach((customer, information) -> {
             response.append(String.format("NOME: %s \n", customer));
             response.append(String.format("Nº DE PEDIDOS: %s \n", information.numberOfOrders()));
             response.append(String.format("MONTANTE GASTO: %s \n", CurrencyFormatter.TO_BRAZIL_REAL(information.totalAmount())));

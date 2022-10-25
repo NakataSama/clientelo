@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.report.result.impl;
 
+import br.com.alura.clientelo.report.impl.SalesPerCategory;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.util.CurrencyFormatter;
 
@@ -7,10 +8,10 @@ import java.util.LinkedHashMap;
 
 public class SalesPerCategoryResult implements Result {
 
-    LinkedHashMap<String, br.com.alura.clientelo.report.impl.SalesPerCategory.Information> result;
+    LinkedHashMap<String, SalesPerCategory.Information> information;
 
-    public SalesPerCategoryResult(LinkedHashMap<String, br.com.alura.clientelo.report.impl.SalesPerCategory.Information> result) {
-        this.result = result;
+    public SalesPerCategoryResult(LinkedHashMap<String, SalesPerCategory.Information> information) {
+        this.information = information;
     }
 
     @Override
@@ -20,7 +21,7 @@ public class SalesPerCategoryResult implements Result {
         response.append("##### RELATÓRIO DE VENDAS POR CATEGORIA ##### \n");
         response.append("\n");
 
-        result.forEach((category, information) -> {
+        information.forEach((category, information) -> {
 
             response.append(String.format("CATEGORIA: %s \n", category));
             response.append(String.format("QUANTIDADE VENDIDA: %s \n", information.numberOfOrders()));

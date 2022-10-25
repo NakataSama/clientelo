@@ -1,16 +1,15 @@
 package br.com.alura.clientelo.report.result.impl;
 
-import br.com.alura.clientelo.report.impl.LoyalCustomers;
 import br.com.alura.clientelo.report.result.Result;
 
 import java.util.LinkedHashMap;
 
 public class LoyalCustomersResult implements Result {
 
-    private final LinkedHashMap<String, Integer> result;
+    private final LinkedHashMap<String, Integer> information;
 
-    public LoyalCustomersResult(LinkedHashMap<String, Integer> result) {
-        this.result = result;
+    public LoyalCustomersResult(LinkedHashMap<String, Integer> information) {
+        this.information = information;
     }
 
     @Override
@@ -20,7 +19,7 @@ public class LoyalCustomersResult implements Result {
         response.append("##### RELATÓRIO DE CLIENTES FIÉIS ##### \n");
         response.append("\n");
 
-        result.forEach((customer, numberOfOrders) -> {
+        information.forEach((customer, numberOfOrders) -> {
             response.append(String.format("NOME: %s \n", customer));
             response.append(String.format("Nº DE PEDIDOS: %s \n", numberOfOrders));
             response.append("\n");

@@ -8,9 +8,9 @@ import java.util.LinkedHashMap;
 
 public class MostExpensiveProductsPerCategoryResult implements Result {
 
-    private final LinkedHashMap<String, MostExpensiveProductsPerCategory.Information> result;
-    public MostExpensiveProductsPerCategoryResult(LinkedHashMap<String, MostExpensiveProductsPerCategory.Information> result) {
-        this.result = result;
+    private final LinkedHashMap<String, MostExpensiveProductsPerCategory.Information> information;
+    public MostExpensiveProductsPerCategoryResult(LinkedHashMap<String, MostExpensiveProductsPerCategory.Information> information) {
+        this.information = information;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class MostExpensiveProductsPerCategoryResult implements Result {
         response.append("##### RELATÓRIO DE PRODUTOS MAIS CAROS POR CATEGORIA ##### \n");
         response.append("\n");
 
-        result.forEach((category, information) -> {
+        information.forEach((category, information) -> {
 
             response.append(String.format("CATEGORIA: %s \n", category));
             response.append(String.format("PRODUTO: %s \n", information.product()));

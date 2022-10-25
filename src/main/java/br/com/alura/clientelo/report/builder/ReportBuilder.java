@@ -2,10 +2,10 @@ package br.com.alura.clientelo.report.builder;
 
 import br.com.alura.clientelo.dataprocessor.DataProcessor;
 import br.com.alura.clientelo.order.Order;
+import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.builder.enums.ReportType;
-import br.com.alura.clientelo.report.builder.enums.ResultType;
+import br.com.alura.clientelo.report.builder.enums.OutcomeType;
 import br.com.alura.clientelo.report.builder.enums.SourceType;
-import br.com.alura.clientelo.report.impl.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class ReportBuilder implements Builder {
     private SourceType sourceType;
     private String filePath;
     private ReportType reportType;
-    private ResultType resultType;
+    private OutcomeType outcomeType;
     private Integer limiter = null;
 
     @Override
@@ -30,8 +30,8 @@ public class ReportBuilder implements Builder {
     }
 
     @Override
-    public void withResultType(ResultType resultType) {
-        this.resultType = resultType;
+    public void withOutcome(OutcomeType outcomeType) {
+        this.outcomeType = outcomeType;
     }
 
     @Override
@@ -39,40 +39,16 @@ public class ReportBuilder implements Builder {
         this.limiter = limiter;
     }
 
-    public Object build() {
+    public Report build() {
+        return reportType.getInstance();
+    }
 
+    public void buildWithOutcome() {
         List<Order> orders = new ArrayList<>();
 
         if(sourceType == SourceType.JSON) orders = DataProcessor.processJson(ClassLoader.getSystemResource(filePath));
         if(sourceType == SourceType.CSV) orders = DataProcessor.processCsv(ClassLoader.getSystemResource(filePath));
 
-        switch(reportType) {
-            case GENERAL_REPORT -> {
-                if (resultType == ResultType.TEXT)
-                    return ResultType.TEXT.apply(new GeneralReport().process(orders, limiter));
-            }
-            case LOYAL_CUSTOMERS -> {
-                if (resultType == ResultType.TEXT)
-                    return ResultType.TEXT.apply(new LoyalCustomers().process(orders, limiter));
-            }
-            case MOST_EXPENSIVE_PRODUCTS_PER_CATEGORY -> {
-                if (resultType == ResultType.TEXT)
-                    return ResultType.TEXT.apply(new MostExpensiveProductsPerCategory().process(orders, limiter));
-            }
-            case MOST_PROFITABLE_CUSTOMERS -> {
-                if (resultType == ResultType.TEXT)
-                    return  ResultType.TEXT.apply(new MostProfitableCustomers().process(orders, limiter));
-            }
-            case SALES_PER_CATEGORY -> {
-                if (resultType == ResultType.TEXT)
-                    return  ResultType.TEXT.apply(new SalesPerCategory().process(orders, limiter));
-            }
-            case TOP_SELLING_PRODUCTS -> {
-                if (resultType == ResultType.TEXT)
-                    return  ResultType.TEXT.apply(new TopSellingProducts().process(orders, limiter));
-            }
-        }
-
-        return Boolean.FALSE;
+        outcomeType.apply(reportType.getInstance().process(orders, limiter));
     }
 }

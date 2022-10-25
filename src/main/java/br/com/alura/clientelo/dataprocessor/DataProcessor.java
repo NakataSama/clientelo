@@ -18,9 +18,8 @@ public class DataProcessor {
         try {
             Reader reader = Files.newBufferedReader(Path.of(file.toURI()));
             CSVReader csvReader = new CSVReader(reader);
-
-            return OrderParser.parse(csvReader.readAll());
-
+            List<String[]> orders = csvReader.readAll();
+            return OrderParser.parse(orders);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -32,7 +31,8 @@ public class DataProcessor {
         objectMapper.registerModule(new JavaTimeModule());
 
         try {
-            return List.of(objectMapper.readValue(file, Order[].class));
+            Order[] orders = objectMapper.readValue(file, Order[].class);
+            return List.of(orders);
         } catch (Exception e) {
             e.printStackTrace();
         }

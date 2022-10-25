@@ -7,10 +7,10 @@ import java.util.List;
 
 public class TopSellingProductsResult implements Result {
 
-    private final List<Order> result;
+    private final List<Order> information;
 
-    public TopSellingProductsResult(List<Order> result) {
-        this.result = result;
+    public TopSellingProductsResult(List<Order> information) {
+        this.information = information;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class TopSellingProductsResult implements Result {
         response.append("##### RELATÓRIO DE PRODUTOS MAIS VENDIDOS ##### \n");
         response.append("\n");
 
-        result.forEach(order -> {
+        information.forEach(order -> {
             response.append(String.format("CATEGORIA: %s \n", order.getCategory()));
             response.append(String.format("PRODUTO: %s \n", order.getProduct()));
             response.append(String.format("QUANTIDADE VENDIDA: %s \n", order.getQuantity()));
