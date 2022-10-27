@@ -4,7 +4,6 @@ import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.impl.*;
 
 public enum ReportType implements ReportTypeInterface<Report> {
-
     GENERAL_REPORT {
         @Override
         public Report getInstance() {

@@ -10,21 +10,21 @@ public class Main {
         ReportBuilder builder = new ReportBuilder();
 
         director.constructGeneralReport(builder);
-        builder.buildWithOutcome();
+        builder.buildAndExecute();
 
         director.constructLoyalCustomers(builder);
-        builder.buildWithOutcome();
+        builder.buildAndExecute();
 
         director.constructMostExpensveProductsPerCategory(builder);
-        builder.buildWithOutcome();
+        builder.buildAndExecute();
 
         director.constructMostProfitableCustomers(builder);
-        builder.buildWithOutcome();
+        builder.buildAndExecute();
 
         director.constructSalesPerCategory(builder);
-        builder.buildWithOutcome();
+        builder.buildAndExecute();
 
         director.constructTopSellingProducs(builder);
-        builder.buildWithOutcome();
+        builder.buildAndExecute();
     }
 }
