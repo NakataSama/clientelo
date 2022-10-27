@@ -2,7 +2,6 @@ package br.com.alura.clientelo.report.builder;
 
 import br.com.alura.clientelo.dataprocessor.DataProcessor;
 import br.com.alura.clientelo.order.Order;
-import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.builder.enums.OutcomeType;
 import br.com.alura.clientelo.report.builder.enums.ReportType;
 
@@ -33,10 +32,6 @@ public class ReportBuilder implements Builder {
     @Override
     public void withLimiter(Integer limiter) {
         this.limiter = limiter;
-    }
-
-    public Report buildInstance() {
-        return reportType.getInstance();
     }
 
     public void buildWithOutcome() {

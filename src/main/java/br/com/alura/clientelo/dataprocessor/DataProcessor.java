@@ -22,19 +22,22 @@ public class DataProcessor {
     private final Pattern json = Pattern.compile("^.*\\.(json)$");
     private final Pattern csv = Pattern.compile("^.*\\.(csv)$");
 
-    public List<Order> processFile(String file) throws IOException, URISyntaxException {
+    public List<Order> processFile(String file) {
+        try {
+            List<Order> response = new ArrayList<>();
+            boolean isJson = json.matcher(file).find();
+            boolean isCsv = csv.matcher(file).find();
 
-        List<Order> response = new ArrayList<>();
-        boolean isJson = json.matcher(file).find();
-        boolean isCsv = csv.matcher(file).find();
+            URL fileURL = validateFile(file, isJson, isCsv);
+            if (isJson)
+                response = processJson(fileURL);
+            if (isCsv)
+                response = processCsv(fileURL);
 
-        URL fileURL = validateFile(file, isJson, isCsv);
-        if (isJson)
-            response = processJson(fileURL);
-        if (isCsv)
-            response = processCsv(fileURL);
-
-        return response;
+            return response;
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing file: %s", e));
+        }
     }
 
     private URL validateFile(String file, boolean isJson, boolean isCsv) throws FileNotFoundException {
