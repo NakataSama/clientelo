@@ -28,7 +28,7 @@ public class DataProcessorTest {
     }
 
     @Test
-    public void shouldThrowFileNotFoundException() {
+    public void shouldThrowExceptionWhenFileNotFound() {
         filePath = "/test.fail";
         assertThrows(RuntimeException.class, () -> subject.processFile(filePath));
     }
