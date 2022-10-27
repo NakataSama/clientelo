@@ -16,19 +16,22 @@ public class MostProfitableCustomersResult implements Result {
 
     @Override
     public String generateText() {
-
-        StringBuilder response = new StringBuilder();
-        response.append("##### RELATÓRIO DE CLIENTES MAIS LUCRATIVOS ##### \n");
-        response.append("\n");
-
-        information.forEach((customer, information) -> {
-            response.append(String.format("NOME: %s \n", customer));
-            response.append(String.format("Nº DE PEDIDOS: %s \n", information.numberOfOrders()));
-            response.append(String.format("MONTANTE GASTO: %s \n", CurrencyFormatter.TO_BRAZIL_REAL(information.totalAmount())));
+        try {
+            StringBuilder response = new StringBuilder();
+            response.append("##### RELATÓRIO DE CLIENTES MAIS LUCRATIVOS ##### \n");
             response.append("\n");
-        });
 
-        response.append("##### FIM DO RELATÓRIO ##### \n");
-        return response.toString();
+            information.forEach((customer, information) -> {
+                response.append(String.format("NOME: %s \n", customer));
+                response.append(String.format("Nº DE PEDIDOS: %s \n", information.numberOfOrders()));
+                response.append(String.format("MONTANTE GASTO: %s \n", CurrencyFormatter.TO_BRAZIL_REAL(information.totalAmount())));
+                response.append("\n");
+            });
+
+            response.append("##### FIM DO RELATÓRIO ##### \n");
+            return response.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while generating text: %s", e));
+        }
     }
 }

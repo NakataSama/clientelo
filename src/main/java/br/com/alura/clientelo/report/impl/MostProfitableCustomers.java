@@ -18,35 +18,41 @@ public class MostProfitableCustomers implements Report {
 
     @Override
     public Result process(List<Order> orders, Integer customerLimit) {
+        try {
+            if (orders == null || orders.isEmpty())
+                throw new RuntimeException("No orders available");
 
-        LinkedHashMap<String, Information> result = new LinkedHashMap<>();
+            LinkedHashMap<String, Information> result = new LinkedHashMap<>();
 
-        long customerCount = orders.stream()
-                .map(Order::getCustomer)
-                .distinct()
-                .count();
+            long customerCount = orders.stream()
+                    .map(Order::getCustomer)
+                    .distinct()
+                    .count();
 
-        Stream<String> customers = orders.stream()
-                .sorted(comparing(Order::getTotalAmount).reversed())
-                .map(Order::getCustomer)
-                .distinct()
-                .limit(customerLimit != null ? customerLimit : customerCount);
+            Stream<String> customers = orders.stream()
+                    .sorted(comparing(Order::getTotalAmount).reversed())
+                    .map(Order::getCustomer)
+                    .distinct()
+                    .limit(customerLimit != null ? customerLimit : customerCount);
 
-        customers.forEach(customer -> {
+            customers.forEach(customer -> {
 
-            List<Order> ordersByCustomer = orders.stream()
-                    .filter(order -> order.getCustomer().equals(customer))
-                    .toList();
+                List<Order> ordersByCustomer = orders.stream()
+                        .filter(order -> order.getCustomer().equals(customer))
+                        .toList();
 
-            Integer numberOfOrders = ordersByCustomer.size();
+                Integer numberOfOrders = ordersByCustomer.size();
 
-            BigDecimal totalAmount = ordersByCustomer.stream()
-                    .map(Order::getTotalAmount)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+                BigDecimal totalAmount = ordersByCustomer.stream()
+                        .map(Order::getTotalAmount)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-            result.put(customer, new Information(numberOfOrders, totalAmount));
-        });
+                result.put(customer, new Information(numberOfOrders, totalAmount));
+            });
 
-        return new MostProfitableCustomersResult(result);
+            return new MostProfitableCustomersResult(result);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
     }
 }

@@ -21,34 +21,40 @@ public class GeneralReport implements Report {
 
     @Override
     public Result process(List<Order> orders, Integer orderLimit) {
+        try {
+            if (orders == null || orders.isEmpty())
+                throw new RuntimeException("No orders available");
 
-        if(orderLimit != null) orders = orders.stream().limit(orderLimit).toList();
+            if (orderLimit != null) orders = orders.stream().limit(orderLimit).toList();
 
-        Integer numberOfOrders = orders.size();
+            Integer numberOfOrders = orders.size();
 
-        Integer productsSold = orders.stream()
-                .map(Order::getQuantity)
-                .reduce(0, Integer::sum);
+            Integer productsSold = orders.stream()
+                    .map(Order::getQuantity)
+                    .reduce(0, Integer::sum);
 
-        Integer categories = Math.toIntExact(orders.stream()
-                .map(Order::getCategory)
-                .distinct()
-                .count());
+            Integer categories = Math.toIntExact(orders.stream()
+                    .map(Order::getCategory)
+                    .distinct()
+                    .count());
 
-        BigDecimal totalAmount = orders.stream()
-                .map(Order::getTotalAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+            BigDecimal totalAmount = orders.stream()
+                    .map(Order::getTotalAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        Map<String, BigDecimal> leastProfitableOrder = orders.stream()
-                .min(comparing(Order::getTotalAmount))
-                .map(order -> Map.of(order.getProduct(), order.getTotalAmount()))
-                .orElse(Map.of("No order", BigDecimal.ZERO));
+            Map<String, BigDecimal> leastProfitableOrder = orders.stream()
+                    .min(comparing(Order::getTotalAmount))
+                    .map(order -> Map.of(order.getProduct(), order.getTotalAmount()))
+                    .orElse(Map.of("No order", BigDecimal.ZERO));
 
-        Map<String, BigDecimal> mostProfitableOrder = orders.stream()
-                .max(comparing(Order::getTotalAmount))
-                .map(order -> Map.of(order.getProduct(), order.getTotalAmount()))
-                .orElse(Map.of("No order", BigDecimal.ZERO));
+            Map<String, BigDecimal> mostProfitableOrder = orders.stream()
+                    .max(comparing(Order::getTotalAmount))
+                    .map(order -> Map.of(order.getProduct(), order.getTotalAmount()))
+                    .orElse(Map.of("No order", BigDecimal.ZERO));
 
-        return new GeneralReportResult(new Information(numberOfOrders, productsSold, categories, totalAmount, leastProfitableOrder, mostProfitableOrder));
+            return new GeneralReportResult(new Information(numberOfOrders, productsSold, categories, totalAmount, leastProfitableOrder, mostProfitableOrder));
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
     }
 }

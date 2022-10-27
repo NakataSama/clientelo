@@ -17,36 +17,42 @@ public class MostExpensiveProductsPerCategory implements Report {
 
     @Override
     public Result process(List<Order> orders, Integer categoryLimit) {
+        try {
+            if (orders == null || orders.isEmpty())
+                throw new RuntimeException("No orders available");
 
-        LinkedHashMap<String, Information> result = new LinkedHashMap<>();
+            LinkedHashMap<String, Information> result = new LinkedHashMap<>();
 
-        long categoryCount = orders.stream()
-                .map(Order::getCategory)
-                .distinct()
-                .count();
+            long categoryCount = orders.stream()
+                    .map(Order::getCategory)
+                    .distinct()
+                    .count();
 
-        Stream<String> categories = orders.stream()
-                .map(Order::getCategory)
-                .distinct()
-                .limit(categoryLimit != null ? categoryLimit : categoryCount)
-                .sorted();
+            Stream<String> categories = orders.stream()
+                    .map(Order::getCategory)
+                    .distinct()
+                    .limit(categoryLimit != null ? categoryLimit : categoryCount)
+                    .sorted();
 
-        categories.forEach(category -> {
+            categories.forEach(category -> {
 
-            List<Order> filteredOrders = orders.stream().filter(order -> order.getCategory().equals(category))
-                    .sorted(Comparator.comparing(Order::getPrice).reversed()).toList();
+                List<Order> filteredOrders = orders.stream().filter(order -> order.getCategory().equals(category))
+                        .sorted(Comparator.comparing(Order::getPrice).reversed()).toList();
 
-            String product = filteredOrders.stream()
-                    .map(Order::getProduct)
-                    .findFirst().orElse("No product");
+                String product = filteredOrders.stream()
+                        .map(Order::getProduct)
+                        .findFirst().orElse("No product");
 
-            BigDecimal price = filteredOrders.stream()
-                    .map(Order::getPrice)
-                    .findFirst().orElse(BigDecimal.ZERO);
+                BigDecimal price = filteredOrders.stream()
+                        .map(Order::getPrice)
+                        .findFirst().orElse(BigDecimal.ZERO);
 
-            result.put(category, new Information(product, price));
-        });
+                result.put(category, new Information(product, price));
+            });
 
-        return new MostExpensiveProductsPerCategoryResult(result);
+            return new MostExpensiveProductsPerCategoryResult(result);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
     }
 }

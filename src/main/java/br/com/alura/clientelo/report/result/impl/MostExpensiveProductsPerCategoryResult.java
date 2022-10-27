@@ -15,20 +15,23 @@ public class MostExpensiveProductsPerCategoryResult implements Result {
 
     @Override
     public String generateText() {
-
-        StringBuilder response = new StringBuilder();
-        response.append("##### RELATÓRIO DE PRODUTOS MAIS CAROS POR CATEGORIA ##### \n");
-        response.append("\n");
-
-        information.forEach((category, information) -> {
-
-            response.append(String.format("CATEGORIA: %s \n", category));
-            response.append(String.format("PRODUTO: %s \n", information.product()));
-            response.append(String.format("PREÇO: %s \n", CurrencyFormatter.TO_BRAZIL_REAL(information.price())));
+        try {
+            StringBuilder response = new StringBuilder();
+            response.append("##### RELATÓRIO DE PRODUTOS MAIS CAROS POR CATEGORIA ##### \n");
             response.append("\n");
-        });
 
-        response.append("##### FIM DO RELATÓRIO ##### \n");
-        return response.toString();
+            information.forEach((category, information) -> {
+
+                response.append(String.format("CATEGORIA: %s \n", category));
+                response.append(String.format("PRODUTO: %s \n", information.product()));
+                response.append(String.format("PREÇO: %s \n", CurrencyFormatter.TO_BRAZIL_REAL(information.price())));
+                response.append("\n");
+            });
+
+            response.append("##### FIM DO RELATÓRIO ##### \n");
+            return response.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while generating text: %s", e));
+        }
     }
 }

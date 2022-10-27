@@ -1,0 +1,18 @@
+[
+  {
+    "categoria": "INFORMÁTICA",
+    "produto": "Notebook Samsung",
+    "preco": 3523,
+    "quantidade": 1,
+    "data": "01/01/2022",
+    "cliente": "ANA"
+  },
+  {
+    "categoria": "MÓVEIS",
+    "produto": "Sofá 3 lugares",
+    "preco": 2500,
+    "quantidade": 1,
+    "data": "05/01/2022",
+    "cliente": "ANA"
+  }
+]

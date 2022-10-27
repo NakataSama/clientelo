@@ -15,24 +15,30 @@ public class LoyalCustomers implements Report {
 
     @Override
     public Result process(List<Order> orders, Integer customerLimit) {
+        try {
+            if (orders == null || orders.isEmpty())
+                throw new RuntimeException("No orders available");
 
-        LinkedHashMap<String, Integer> result;
+            LinkedHashMap<String, Integer> result;
 
-        long customerCount = orders.stream()
-                .map(Order::getCustomer)
-                .distinct()
-                .count();
+            long customerCount = orders.stream()
+                    .map(Order::getCustomer)
+                    .distinct()
+                    .count();
 
-        Stream<String> customers = orders.stream()
-                .map(Order::getCustomer)
-                .distinct()
-                .limit(customerLimit != null ? customerLimit : customerCount)
-                .sorted();
+            Stream<String> customers = orders.stream()
+                    .map(Order::getCustomer)
+                    .distinct()
+                    .limit(customerLimit != null ? customerLimit : customerCount)
+                    .sorted();
 
-        result = customers.collect(toMap(customer -> customer, customer -> orders.stream()
-                .filter(order -> order.getCustomer().equals(customer))
-                .toList().size(), (k, v) -> k, LinkedHashMap::new));
+            result = customers.collect(toMap(customer -> customer, customer -> orders.stream()
+                    .filter(order -> order.getCustomer().equals(customer))
+                    .toList().size(), (k, v) -> k, LinkedHashMap::new));
 
-        return new LoyalCustomersResult(result);
+            return new LoyalCustomersResult(result);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
     }
 }

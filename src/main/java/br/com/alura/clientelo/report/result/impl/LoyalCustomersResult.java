@@ -14,18 +14,21 @@ public class LoyalCustomersResult implements Result {
 
     @Override
     public String generateText() {
-
-        StringBuilder response = new StringBuilder();
-        response.append("##### RELATÓRIO DE CLIENTES FIÉIS ##### \n");
-        response.append("\n");
-
-        information.forEach((customer, numberOfOrders) -> {
-            response.append(String.format("NOME: %s \n", customer));
-            response.append(String.format("Nº DE PEDIDOS: %s \n", numberOfOrders));
+        try {
+            StringBuilder response = new StringBuilder();
+            response.append("##### RELATÓRIO DE CLIENTES FIÉIS ##### \n");
             response.append("\n");
-        });
 
-        response.append("##### FIM DO RELATÓRIO ##### \n");
-        return response.toString();
+            information.forEach((customer, numberOfOrders) -> {
+                response.append(String.format("NOME: %s \n", customer));
+                response.append(String.format("Nº DE PEDIDOS: %s \n", numberOfOrders));
+                response.append("\n");
+            });
+
+            response.append("##### FIM DO RELATÓRIO ##### \n");
+            return response.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while generating text: %s", e));
+        }
     }
 }

@@ -16,37 +16,43 @@ public class SalesPerCategory implements Report {
 
     @Override
     public Result process(List<Order> orders, Integer categoryLimit) {
+        try {
+            if (orders == null || orders.isEmpty())
+                throw new RuntimeException("No orders available");
 
-        LinkedHashMap<String, Information> result = new LinkedHashMap<>();
+            LinkedHashMap<String, Information> result = new LinkedHashMap<>();
 
-        long categoryCount = orders.stream()
-                .map(Order::getCategory)
-                .distinct()
-                .count();
+            long categoryCount = orders.stream()
+                    .map(Order::getCategory)
+                    .distinct()
+                    .count();
 
-        Stream<String> categories = orders.stream()
-                .map(Order::getCategory)
-                .distinct()
-                .limit(categoryLimit != null ? categoryLimit : categoryCount)
-                .sorted();
+            Stream<String> categories = orders.stream()
+                    .map(Order::getCategory)
+                    .distinct()
+                    .limit(categoryLimit != null ? categoryLimit : categoryCount)
+                    .sorted();
 
-        categories.forEach(category -> {
+            categories.forEach(category -> {
 
-            List<Order> ordersPerCategory = orders.stream()
-                    .filter(order -> order.getCategory().equals(category))
-                    .toList();
+                List<Order> ordersPerCategory = orders.stream()
+                        .filter(order -> order.getCategory().equals(category))
+                        .toList();
 
-            Integer numberOfOrders = ordersPerCategory.stream()
-                    .map(Order::getQuantity)
-                    .reduce(0, Integer::sum);
+                Integer numberOfOrders = ordersPerCategory.stream()
+                        .map(Order::getQuantity)
+                        .reduce(0, Integer::sum);
 
-            BigDecimal totalAmount = ordersPerCategory.stream()
-                    .map(Order::getTotalAmount)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+                BigDecimal totalAmount = ordersPerCategory.stream()
+                        .map(Order::getTotalAmount)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-            result.put(category, new Information(numberOfOrders, totalAmount));
-        });
+                result.put(category, new Information(numberOfOrders, totalAmount));
+            });
 
-        return new SalesPerCategoryResult(result);
+            return new SalesPerCategoryResult(result);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
     }
 }

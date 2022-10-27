@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.report.builder.enums;
+package br.com.alura.clientelo.dataprocessor;
 
 public enum SourceType {
     JSON(".json"), CSV(".csv");
