@@ -4,7 +4,6 @@ import br.com.alura.clientelo.order.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +22,7 @@ public class DataProcessorTest {
     }
 
     @Test
-    public void shouldProcessData() throws Exception {
+    public void shouldProcessData() {
         List<Order> orders = subject.processFile(filePath);
         assertEquals(orders.size(), 2);
     }
@@ -31,12 +30,12 @@ public class DataProcessorTest {
     @Test
     public void shouldThrowFileNotFoundException() {
         filePath = "/test.fail";
-        assertThrows(FileNotFoundException.class, () -> subject.processFile(filePath));
+        assertThrows(RuntimeException.class, () -> subject.processFile(filePath));
     }
 
     @Test
     public void shouldThrowExceptionWhenConvertingFile() {
         filePath = "./test/pedidos.csv";
-        assertThrows(NumberFormatException.class, () -> subject.processFile(filePath));
+        assertThrows(RuntimeException.class, () -> subject.processFile(filePath));
     }
 }
