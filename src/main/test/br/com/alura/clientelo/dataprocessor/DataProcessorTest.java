@@ -18,7 +18,7 @@ public class DataProcessorTest {
     @BeforeEach
     public void setUp() {
         subject = new DataProcessor();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
     }
 
     @Test
@@ -35,7 +35,7 @@ public class DataProcessorTest {
 
     @Test
     public void shouldThrowExceptionWhenConvertingFile() {
-        filePath = "./test/pedidos.csv";
+        filePath = "pedidos.csv";
         assertThrows(RuntimeException.class, () -> subject.processFile(filePath));
     }
 }

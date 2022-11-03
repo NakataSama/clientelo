@@ -23,7 +23,7 @@ public class LoyalCustomersResultTest {
     @BeforeEach
     public void setUp() throws Exception {
         report = new LoyalCustomers();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 

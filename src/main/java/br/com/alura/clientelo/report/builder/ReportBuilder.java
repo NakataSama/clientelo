@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.report.builder;
 
 import br.com.alura.clientelo.dataprocessor.DataProcessor;
-import br.com.alura.clientelo.order.Order;
+import br.com.alura.clientelo.order.OrderItem;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.builder.enums.OutcomeType;
 import br.com.alura.clientelo.report.builder.enums.ReportType;
@@ -49,7 +49,7 @@ public class ReportBuilder implements Builder {
 
     public void buildAndExecute() {
         try {
-            List<Order> orders = new DataProcessor().processFile(filePath);
+            List<OrderItem> orders = new DataProcessor().processFile(filePath);
             if(orders.size() != 0)
                 outcomeType.apply(reportType.getInstance().process(orders, limiter));
         } catch (Exception e) {

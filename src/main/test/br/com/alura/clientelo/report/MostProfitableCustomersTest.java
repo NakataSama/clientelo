@@ -21,7 +21,7 @@ public class MostProfitableCustomersTest {
     @BeforeEach
     public void setUp() throws Exception {
         subject = new MostProfitableCustomers();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 

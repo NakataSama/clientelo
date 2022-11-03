@@ -1,75 +1,92 @@
 package br.com.alura.clientelo.order;
 
+import br.com.alura.clientelo.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
+@Entity
+@Table(name = "order")
 public class Order {
-    @JsonProperty("categoria")
-    private String category;
-    @JsonProperty("produto")
-    private String product;
-    @JsonProperty("cliente")
-    private String customer;
-    @JsonProperty("preco")
-    private BigDecimal price;
-    @JsonProperty("quantidade")
-    private int quantity;
-    @JsonProperty("data")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    private BigDecimal discount;
+
+    @Enumerated(EnumType.STRING)
+    private DiscountType discountType;
+
     public Order() {}
 
-    public Order(String category, String product, String customer, BigDecimal price, int quantity, LocalDate date) {
-        this.category = category;
-        this.product = product;
-        this.customer = customer;
-        this.price = price;
-        this.quantity = quantity;
+    public Order(LocalDate date, Customer customer, BigDecimal discount, DiscountType discountType) {
         this.date = date;
+        this.customer = customer;
+        this.discount = discount;
+        this.discountType = discountType;
     }
 
-    public String getCategory() {
-        return category;
+    public Long getId() {
+        return id;
     }
 
-    public String getProduct() {
-        return product;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public BigDecimal getTotalAmount() {
-        return price.multiply(BigDecimal.valueOf(quantity));
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
+    public DiscountType getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(DiscountType discountType) {
+        this.discountType = discountType;
     }
 
     @Override
-    public String toString() {
-        return "Order{" +
-                "category='" + category + '\'' +
-                ", product='" + product + '\'' +
-                ", customer='" + customer + '\'' +
-                ", price=" + "R$ "+ price +
-                ", quantity=" + quantity +
-                ", date=" + date +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id) && Objects.equals(date, order.date) && Objects.equals(customer, order.customer) && Objects.equals(discount, order.discount) && discountType == order.discountType;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, date, customer, discount, discountType);
+    }
 }

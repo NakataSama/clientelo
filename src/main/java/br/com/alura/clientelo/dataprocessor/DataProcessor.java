@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dataprocessor;
 
-import br.com.alura.clientelo.order.Order;
+import br.com.alura.clientelo.order.OrderItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencsv.CSVReader;
@@ -22,9 +22,9 @@ public class DataProcessor {
     private final Pattern json = Pattern.compile("^.*\\.(json)$");
     private final Pattern csv = Pattern.compile("^.*\\.(csv)$");
 
-    public List<Order> processFile(String file) {
+    public List<OrderItem> processFile(String file) {
         try {
-            List<Order> response = new ArrayList<>();
+            List<OrderItem> response = new ArrayList<>();
             boolean isJson = json.matcher(file).find();
             boolean isCsv = csv.matcher(file).find();
 
@@ -49,7 +49,7 @@ public class DataProcessor {
         throw new FileNotFoundException();
     }
 
-    private List<Order> processCsv(URL file) throws IOException, URISyntaxException {
+    private List<OrderItem> processCsv(URL file) throws IOException, URISyntaxException {
         Reader reader = Files.newBufferedReader(Path.of(file.toURI()));
         CSVReader csvReader = new CSVReader(reader);
         List<String[]> orders = csvReader.readAll();
@@ -57,10 +57,8 @@ public class DataProcessor {
         return OrderParser.parse(orders);
     }
 
-    private List<Order> processJson(URL file) throws IOException {
+    private List<OrderItem> processJson(URL file) throws IOException {
         objectMapper.registerModule(new JavaTimeModule());
-        Order[] orders = objectMapper.readValue(file, Order[].class);
-
-        return List.of(orders);
+        return OrderParser.parse(objectMapper.readTree(file));
     }
 }

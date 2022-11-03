@@ -21,7 +21,7 @@ public class SalesPerCategoryTest {
     @BeforeEach
     public void setUp() throws Exception {
         subject = new SalesPerCategory();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 

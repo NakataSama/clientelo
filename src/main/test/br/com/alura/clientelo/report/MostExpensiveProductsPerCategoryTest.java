@@ -22,7 +22,7 @@ public class MostExpensiveProductsPerCategoryTest {
     @BeforeEach
     public void setUp() throws Exception {
         subject = new MostExpensiveProductsPerCategory();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 

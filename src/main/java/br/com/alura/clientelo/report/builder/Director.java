@@ -29,7 +29,7 @@ public class Director {
     public void constructMostProfitableCustomers(Builder builder) {
         builder.withFilePath("pedidos.json")
                 .withType(ReportType.MOST_PROFITABLE_CUSTOMERS)
-                .withLimiter(2)
+                .withLimiter(3)
                 .withOutcome(OutcomeType.CONSOLE);
     }
 

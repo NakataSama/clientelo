@@ -23,7 +23,7 @@ public class SalesPerCategoryResultTest {
     @BeforeEach
     public void setUp() throws Exception {
         report = new SalesPerCategory();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 

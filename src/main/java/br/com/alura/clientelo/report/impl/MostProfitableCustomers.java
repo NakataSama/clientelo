@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.order.Order;
+import br.com.alura.clientelo.order.OrderItem;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.MostProfitableCustomersResult;
@@ -17,7 +17,7 @@ public class MostProfitableCustomers implements Report {
     public record Information(Integer numberOfOrders, BigDecimal totalAmount) { }
 
     @Override
-    public Result process(List<Order> orders, Integer customerLimit) {
+    public Result process(List<OrderItem> orders, Integer customerLimit) {
         try {
             if (orders == null || orders.isEmpty())
                 throw new RuntimeException("No orders available");
@@ -25,26 +25,26 @@ public class MostProfitableCustomers implements Report {
             LinkedHashMap<String, Information> result = new LinkedHashMap<>();
 
             long customerCount = orders.stream()
-                    .map(Order::getCustomer)
+                    .map(order -> order.getOrder().getCustomer().getName())
                     .distinct()
                     .count();
 
             Stream<String> customers = orders.stream()
-                    .sorted(comparing(Order::getTotalAmount).reversed())
-                    .map(Order::getCustomer)
+                    .sorted(comparing(OrderItem::getTotalAmount).reversed())
+                    .map(order -> order.getOrder().getCustomer().getName())
                     .distinct()
                     .limit(customerLimit != null ? customerLimit : customerCount);
 
             customers.forEach(customer -> {
 
-                List<Order> ordersByCustomer = orders.stream()
-                        .filter(order -> order.getCustomer().equals(customer))
+                List<OrderItem> ordersByCustomer = orders.stream()
+                        .filter(order -> order.getOrder().getCustomer().getName().equals(customer))
                         .toList();
 
                 Integer numberOfOrders = ordersByCustomer.size();
 
                 BigDecimal totalAmount = ordersByCustomer.stream()
-                        .map(Order::getTotalAmount)
+                        .map(OrderItem::getTotalAmount)
                         .reduce(BigDecimal.ZERO, BigDecimal::add);
 
                 result.put(customer, new Information(numberOfOrders, totalAmount));

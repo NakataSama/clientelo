@@ -23,7 +23,7 @@ public class TopSellingProductsResultTest {
     @BeforeEach
     public void setUp() throws Exception {
         report = new TopSellingProducts();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 

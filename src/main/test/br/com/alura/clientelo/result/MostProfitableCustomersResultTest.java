@@ -23,7 +23,7 @@ public class MostProfitableCustomersResultTest {
     @BeforeEach
     public void setUp() throws Exception {
         report = new MostProfitableCustomers();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 

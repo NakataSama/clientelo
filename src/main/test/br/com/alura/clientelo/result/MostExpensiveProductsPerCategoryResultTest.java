@@ -23,7 +23,7 @@ public class MostExpensiveProductsPerCategoryResultTest {
     @BeforeEach
     public void setUp() throws Exception {
         report = new MostExpensiveProductsPerCategory();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 

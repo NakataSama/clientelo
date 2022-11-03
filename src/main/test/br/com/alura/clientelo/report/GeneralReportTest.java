@@ -22,7 +22,7 @@ public class GeneralReportTest {
     @BeforeEach
     public void setUp() throws Exception {
         subject = new GeneralReport();
-        filePath = "./test/pedidos.json";
+        filePath = "pedidos.json";
         orders = new DataProcessor().processFile(filePath);
     }
 
