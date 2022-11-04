@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.store.order.OrderItem;
+import br.com.alura.clientelo.dataprocessor.order.OrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.GeneralReportResult;
@@ -21,7 +21,7 @@ public class GeneralReport implements Report {
                               Map<String, BigDecimal> mostProfitableOrder) { }
 
     @Override
-    public Result process(List<OrderItem> orders, Integer orderLimit) {
+    public Result process(List<OrderDTO> orders, Integer orderLimit) {
         try {
             if (orders == null || orders.isEmpty())
                 throw new RuntimeException("No orders available");
@@ -31,26 +31,26 @@ public class GeneralReport implements Report {
             Integer numberOfOrders = orders.size();
 
             Integer productsSold = orders.stream()
-                    .map(OrderItem::getQuantity)
+                    .map(OrderDTO::getQuantity)
                     .reduce(0, Integer::sum);
 
             Integer categories = Math.toIntExact(orders.stream()
-                    .map(order -> order.getProduct().getCategory().getName())
+                    .map(OrderDTO::getCategory)
                     .distinct()
                     .count());
 
             BigDecimal totalAmount = orders.stream()
-                    .map(OrderItem::getTotalAmount)
+                    .map(OrderDTO::getTotalAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
 
             Map<String, BigDecimal> leastProfitableOrder = orders.stream()
-                    .min(comparing(OrderItem::getTotalAmount))
-                    .map(order -> Map.of(order.getProduct().getName(), order.getTotalAmount()))
+                    .min(comparing(OrderDTO::getTotalAmount))
+                    .map(order -> Map.of(order.getProduct(), order.getTotalAmount()))
                     .orElse(Map.of("No order", BigDecimal.ZERO));
 
             Map<String, BigDecimal> mostProfitableOrder = orders.stream()
-                    .max(comparing(OrderItem::getTotalAmount))
-                    .map(order -> Map.of(order.getProduct().getName(), order.getTotalAmount()))
+                    .max(comparing(OrderDTO::getTotalAmount))
+                    .map(order -> Map.of(order.getProduct(), order.getTotalAmount()))
                     .orElse(Map.of("No order", BigDecimal.ZERO));
 
             return new GeneralReportResult(new Information(numberOfOrders, productsSold, categories, totalAmount, leastProfitableOrder, mostProfitableOrder));

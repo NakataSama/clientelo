@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.store.order.OrderItem;
+import br.com.alura.clientelo.dataprocessor.order.OrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.MostExpensiveProductsPerCategoryResult;
@@ -16,7 +16,7 @@ public class MostExpensiveProductsPerCategory implements Report {
     public record Information(String product, BigDecimal price) { }
 
     @Override
-    public Result process(List<OrderItem> orders, Integer categoryLimit) {
+    public Result process(List<OrderDTO> orders, Integer categoryLimit) {
         try {
             if (orders == null || orders.isEmpty())
                 throw new RuntimeException("No orders available");
@@ -24,27 +24,27 @@ public class MostExpensiveProductsPerCategory implements Report {
             LinkedHashMap<String, Information> result = new LinkedHashMap<>();
 
             long categoryCount = orders.stream()
-                    .map(order -> order.getProduct().getCategory().getName())
+                    .map(OrderDTO::getCategory)
                     .distinct()
                     .count();
 
             Stream<String> categories = orders.stream()
-                    .map(order -> order.getProduct().getCategory().getName())
+                    .map(OrderDTO::getCategory)
                     .distinct()
                     .limit(categoryLimit != null ? categoryLimit : categoryCount)
                     .sorted();
 
             categories.forEach(category -> {
 
-                List<OrderItem> filteredOrders = orders.stream().filter(order -> order.getProduct().getCategory().getName().equals(category))
-                        .sorted(Comparator.comparing(OrderItem::getPrice).reversed()).toList();
+                List<OrderDTO> filteredOrders = orders.stream().filter(order -> order.getCategory().equals(category))
+                        .sorted(Comparator.comparing(OrderDTO::getPrice).reversed()).toList();
 
                 String product = filteredOrders.stream()
-                        .map(order -> order.getProduct().getName())
+                        .map(OrderDTO::getProduct)
                         .findFirst().orElse("No product");
 
                 BigDecimal price = filteredOrders.stream()
-                        .map(OrderItem::getPrice)
+                        .map(OrderDTO::getPrice)
                         .findFirst().orElse(BigDecimal.ZERO);
 
                 result.put(category, new Information(product, price));
