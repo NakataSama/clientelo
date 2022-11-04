@@ -1,13 +1,12 @@
 package br.com.alura.clientelo.dataprocessor;
 
-import br.com.alura.clientelo.category.Category;
-import br.com.alura.clientelo.customer.Address;
-import br.com.alura.clientelo.customer.Customer;
-import br.com.alura.clientelo.order.OrderItemDiscountType;
-import br.com.alura.clientelo.order.DiscountType;
-import br.com.alura.clientelo.order.Order;
-import br.com.alura.clientelo.order.OrderItem;
-import br.com.alura.clientelo.product.Product;
+import br.com.alura.clientelo.store.category.Customer;
+import br.com.alura.clientelo.store.customer.Address;
+import br.com.alura.clientelo.store.order.OrderItemDiscountType;
+import br.com.alura.clientelo.store.order.DiscountType;
+import br.com.alura.clientelo.store.order.Order;
+import br.com.alura.clientelo.store.order.OrderItem;
+import br.com.alura.clientelo.store.product.Product;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.math.BigDecimal;
@@ -25,8 +24,8 @@ public class OrderParser {
                     BigDecimal price = new BigDecimal(order[2]);
                     int quantity = Integer.parseInt(order[3]);
                     LocalDate date = LocalDate.parse(order[4], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    Customer customer = new Customer(order[5], "", "", new Address());
-                    Category category = new Category(order[0], true);
+                    br.com.alura.clientelo.store.customer.Customer customer = new br.com.alura.clientelo.store.customer.Customer(order[5], "", "", new Address());
+                    Customer category = new Customer(order[0], true);
                     Product product = new Product(
                             order[1],
                             price.divide(BigDecimal.valueOf(quantity), RoundingMode.FLOOR),
@@ -47,8 +46,8 @@ public class OrderParser {
                 BigDecimal price = new BigDecimal(node.get("preco").asText());
                 int quantity = node.get("quantidade").asInt();
                 LocalDate date = LocalDate.parse(node.get("data").asText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                Customer customer = new Customer(node.get("cliente").asText(), "", "", new Address());
-                Category category = new Category(node.get("categoria").asText(), true);
+                br.com.alura.clientelo.store.customer.Customer customer = new br.com.alura.clientelo.store.customer.Customer(node.get("cliente").asText(), "", "", new Address());
+                Customer category = new Customer(node.get("categoria").asText(), true);
                 Product product = new Product(
                         node.get("produto").asText(),
                         price.divide(BigDecimal.valueOf(quantity), RoundingMode.FLOOR),

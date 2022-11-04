@@ -1,8 +1,8 @@
-package br.com.alura.clientelo.product;
+package br.com.alura.clientelo.store.product;
 
-import br.com.alura.clientelo.category.Category;
+import br.com.alura.clientelo.store.category.Customer;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
     private String name;
@@ -19,7 +19,7 @@ public class Product {
     private Integer itemsInStock;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;
+    private Customer category;
 
     public Long getId() {
         return id;
@@ -61,17 +61,17 @@ public class Product {
         this.itemsInStock = itemsInStock;
     }
 
-    public Category getCategory() {
+    public Customer getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Customer category) {
         this.category = category;
     }
 
     public Product() {}
 
-    public Product(String name, BigDecimal price, String description, Integer itemsInStock, Category category) {
+    public Product(String name, BigDecimal price, String description, Integer itemsInStock, Customer category) {
         this.name = name;
         this.price = price;
         this.description = description;

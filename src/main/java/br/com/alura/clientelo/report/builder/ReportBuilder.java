@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.report.builder;
 
 import br.com.alura.clientelo.dataprocessor.DataProcessor;
-import br.com.alura.clientelo.order.OrderItem;
+import br.com.alura.clientelo.store.order.OrderItem;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.builder.enums.OutcomeType;
 import br.com.alura.clientelo.report.builder.enums.ReportType;

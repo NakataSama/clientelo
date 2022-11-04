@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dataprocessor;
 
-import br.com.alura.clientelo.order.OrderItem;
+import br.com.alura.clientelo.store.order.OrderItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencsv.CSVReader;

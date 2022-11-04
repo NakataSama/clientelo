@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.result.impl;
 
-import br.com.alura.clientelo.order.OrderItem;
+import br.com.alura.clientelo.store.order.OrderItem;
 import br.com.alura.clientelo.report.result.Result;
 
 import java.util.List;

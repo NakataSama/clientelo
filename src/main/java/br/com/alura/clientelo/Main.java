@@ -26,5 +26,20 @@ public class Main {
 
         director.constructTopSellingProducs(builder);
         builder.buildAndExecute();
+
+//        EntityManager em = JPAUtil.getEntityManager();
+//        Category category = new Category("TECH", true);
+//
+//
+//        em.getTransaction().begin();
+//        em.persist(category);
+//
+//        Category cat = em.find(Category.class, 1);
+//        Product product = new Product(
+//                "nome", BigDecimal.ZERO, "desc", 10, cat
+//        );
+//        em.persist(product);
+//        em.getTransaction().commit();
+//        em.close();
     }
 }

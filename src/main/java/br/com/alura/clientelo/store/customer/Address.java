@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.customer;
+package br.com.alura.clientelo.store.customer;
 
 import java.util.Objects;
 

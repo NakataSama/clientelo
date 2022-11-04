@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.report;
 
 import br.com.alura.clientelo.dataprocessor.DataProcessor;
-import br.com.alura.clientelo.order.Order;
+import br.com.alura.clientelo.store.order.Order;
 import br.com.alura.clientelo.report.impl.MostExpensiveProductsPerCategory;
 import br.com.alura.clientelo.report.result.Result;
 import org.junit.jupiter.api.BeforeEach;

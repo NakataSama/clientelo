@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.category;
+package br.com.alura.clientelo.store.category;
 
 import jakarta.persistence.*;
 
@@ -6,18 +6,18 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "category")
-public class Category {
+public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private String name;
     private boolean active = true;
 
-    public Category() {}
+    public Customer() {}
 
-    public Category(String name, boolean active) {
+    public Customer(String name, boolean active) {
         this.name = name;
         this.active = active;
     }
@@ -50,7 +50,7 @@ public class Category {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
+        Customer category = (Customer) o;
         return active == category.active && Objects.equals(id, category.id) && Objects.equals(name, category.name);
     }
 

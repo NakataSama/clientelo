@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dataprocessor;
 
-import br.com.alura.clientelo.order.Order;
+import br.com.alura.clientelo.store.order.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

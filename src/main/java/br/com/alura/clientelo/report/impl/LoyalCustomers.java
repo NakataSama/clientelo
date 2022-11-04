@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.order.OrderItem;
+import br.com.alura.clientelo.store.order.OrderItem;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.LoyalCustomersResult;

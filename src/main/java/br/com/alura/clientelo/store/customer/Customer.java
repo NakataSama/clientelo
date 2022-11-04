@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.customer;
+package br.com.alura.clientelo.store.customer;
 
 
 import jakarta.persistence.*;
@@ -9,8 +9,8 @@ import java.util.Objects;
 @Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private String name;
