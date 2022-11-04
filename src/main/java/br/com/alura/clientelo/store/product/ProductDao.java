@@ -49,9 +49,9 @@ public class ProductDao implements JPADao<Product> {
     }
 
     @Override
-    public Optional<List<Product>> getAll() {
+    public List<Product> getAll() {
         em.getTransaction().begin();
-        Optional<List<Product>> response = Optional.of(em.createQuery("SELECT p FROM product p", Product.class).getResultList());
+        List<Product> response = em.createQuery("SELECT p FROM product p", Product.class).getResultList();
         em.getTransaction().commit();
         em.close();
 

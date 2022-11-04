@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "category")
-public class Customer {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -15,9 +15,9 @@ public class Customer {
     private String name;
     private boolean active = true;
 
-    public Customer() {}
+    public Category() {}
 
-    public Customer(String name, boolean active) {
+    public Category(String name, boolean active) {
         this.name = name;
         this.active = active;
     }
@@ -50,7 +50,7 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Customer category = (Customer) o;
+        Category category = (Category) o;
         return active == category.active && Objects.equals(id, category.id) && Objects.equals(name, category.name);
     }
 

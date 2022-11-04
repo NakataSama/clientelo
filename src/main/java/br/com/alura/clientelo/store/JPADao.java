@@ -9,6 +9,6 @@ public interface JPADao<T> {
     Optional<T> getById(long id);
     void update(T object);
     void remove(T object);
-    Optional<List<T>> getAll();
+    List<T> getAll();
 
 }

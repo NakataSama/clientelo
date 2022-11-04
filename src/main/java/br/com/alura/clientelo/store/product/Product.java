@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.store.product;
 
-import br.com.alura.clientelo.store.category.Customer;
+import br.com.alura.clientelo.store.category.Category;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -19,7 +19,7 @@ public class Product {
     private Integer itemsInStock;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Customer category;
+    private Category category;
 
     public Long getId() {
         return id;
@@ -61,17 +61,17 @@ public class Product {
         this.itemsInStock = itemsInStock;
     }
 
-    public Customer getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Customer category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
     public Product() {}
 
-    public Product(String name, BigDecimal price, String description, Integer itemsInStock, Customer category) {
+    public Product(String name, BigDecimal price, String description, Integer itemsInStock, Category category) {
         this.name = name;
         this.price = price;
         this.description = description;

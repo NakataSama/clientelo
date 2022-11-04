@@ -49,9 +49,9 @@ public class CustomerDao implements JPADao<Customer> {
     }
 
     @Override
-    public Optional<List<Customer>> getAll() {
+    public List<Customer> getAll() {
         em.getTransaction().begin();
-        Optional<List<Customer>> response = Optional.of(em.createQuery("SELECT c FROM customer c", Customer.class).getResultList());
+        List<Customer> response = em.createQuery("SELECT c FROM customer c", Customer.class).getResultList();
         em.getTransaction().commit();
         em.close();
 

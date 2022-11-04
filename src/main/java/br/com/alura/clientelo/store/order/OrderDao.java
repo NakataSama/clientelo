@@ -49,9 +49,9 @@ public class OrderDao implements JPADao<Order> {
     }
 
     @Override
-    public Optional<List<Order>> getAll() {
+    public List<Order> getAll() {
         em.getTransaction().begin();
-        Optional<List<Order>> response = Optional.of(em.createQuery("SELECT o FROM order o", Order.class).getResultList());
+        List<Order> response = em.createQuery("SELECT o FROM order o", Order.class).getResultList();
         em.getTransaction().commit();
         em.close();
 

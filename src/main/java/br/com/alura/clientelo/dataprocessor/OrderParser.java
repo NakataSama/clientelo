@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dataprocessor;
 
-import br.com.alura.clientelo.store.category.Customer;
+import br.com.alura.clientelo.store.category.Category;
 import br.com.alura.clientelo.store.customer.Address;
 import br.com.alura.clientelo.store.order.OrderItemDiscountType;
 import br.com.alura.clientelo.store.order.DiscountType;
@@ -25,7 +25,7 @@ public class OrderParser {
                     int quantity = Integer.parseInt(order[3]);
                     LocalDate date = LocalDate.parse(order[4], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     br.com.alura.clientelo.store.customer.Customer customer = new br.com.alura.clientelo.store.customer.Customer(order[5], "", "", new Address());
-                    Customer category = new Customer(order[0], true);
+                    Category category = new Category(order[0], true);
                     Product product = new Product(
                             order[1],
                             price.divide(BigDecimal.valueOf(quantity), RoundingMode.FLOOR),
@@ -47,7 +47,7 @@ public class OrderParser {
                 int quantity = node.get("quantidade").asInt();
                 LocalDate date = LocalDate.parse(node.get("data").asText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 br.com.alura.clientelo.store.customer.Customer customer = new br.com.alura.clientelo.store.customer.Customer(node.get("cliente").asText(), "", "", new Address());
-                Customer category = new Customer(node.get("categoria").asText(), true);
+                Category category = new Category(node.get("categoria").asText(), true);
                 Product product = new Product(
                         node.get("produto").asText(),
                         price.divide(BigDecimal.valueOf(quantity), RoundingMode.FLOOR),

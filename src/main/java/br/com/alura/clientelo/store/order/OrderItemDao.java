@@ -49,9 +49,9 @@ public class OrderItemDao implements JPADao<OrderItem> {
     }
 
     @Override
-    public Optional<List<OrderItem>> getAll() {
+    public List<OrderItem> getAll() {
         em.getTransaction().begin();
-        Optional<List<OrderItem>> response = Optional.of(em.createQuery("SELECT oi FROM orderItem oi", OrderItem.class).getResultList());
+        List<OrderItem> response = em.createQuery("SELECT oi FROM orderItem oi", OrderItem.class).getResultList();
         em.getTransaction().commit();
         em.close();
 

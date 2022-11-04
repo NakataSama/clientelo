@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public class CategoryDao implements JPADao<Customer> {
+public class CategoryDao implements JPADao<Category> {
 
     private EntityManager em;
 
@@ -15,7 +15,7 @@ public class CategoryDao implements JPADao<Customer> {
     }
 
     @Override
-    public void create(Customer category) {
+    public void create(Category category) {
         em.getTransaction().begin();
         em.persist(category);
         em.getTransaction().commit();
@@ -23,9 +23,9 @@ public class CategoryDao implements JPADao<Customer> {
     }
 
     @Override
-    public Optional<Customer> getById(long id) {
+    public Optional<Category> getById(long id) {
         em.getTransaction().begin();
-        Optional<Customer> response = Optional.of(em.find(Customer.class, id));
+        Optional<Category> response = Optional.of(em.find(Category.class, id));
         em.getTransaction().commit();
         em.close();
 
@@ -33,7 +33,7 @@ public class CategoryDao implements JPADao<Customer> {
     }
 
     @Override
-    public void update(Customer category) {
+    public void update(Category category) {
         em.getTransaction().begin();
         em.merge(category);
         em.getTransaction().commit();
@@ -41,7 +41,7 @@ public class CategoryDao implements JPADao<Customer> {
     }
 
     @Override
-    public void remove(Customer category) {
+    public void remove(Category category) {
         em.getTransaction().begin();
         em.remove(category);
         em.getTransaction().commit();
@@ -49,9 +49,9 @@ public class CategoryDao implements JPADao<Customer> {
     }
 
     @Override
-    public Optional<List<Customer>> getAll() {
+    public List<Category> getAll() {
         em.getTransaction().begin();
-        Optional<List<Customer>> response = Optional.of(em.createQuery("SELECT c FROM category c", Customer.class).getResultList());
+        List<Category> response = em.createQuery("SELECT c FROM category c", Category.class).getResultList();
         em.getTransaction().commit();
         em.close();
 
