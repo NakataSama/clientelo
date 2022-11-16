@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.dataprocessor.order.OrderDTO;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.GeneralReportResult;
@@ -21,7 +21,7 @@ public class GeneralReport implements Report {
                               Map<String, BigDecimal> mostProfitableOrder) { }
 
     @Override
-    public Result process(List<OrderDTO> orders, Integer orderLimit) {
+    public Result process(List<ReportOrderDTO> orders, Integer orderLimit) {
         try {
             if (orders == null || orders.isEmpty())
                 throw new RuntimeException("No orders available");
@@ -31,25 +31,25 @@ public class GeneralReport implements Report {
             Integer numberOfOrders = orders.size();
 
             Integer productsSold = orders.stream()
-                    .map(OrderDTO::getQuantity)
+                    .map(ReportOrderDTO::getQuantity)
                     .reduce(0, Integer::sum);
 
             Integer categories = Math.toIntExact(orders.stream()
-                    .map(OrderDTO::getCategory)
+                    .map(ReportOrderDTO::getCategory)
                     .distinct()
                     .count());
 
             BigDecimal totalAmount = orders.stream()
-                    .map(OrderDTO::getTotalAmount)
+                    .map(ReportOrderDTO::getTotalAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
 
             Map<String, BigDecimal> leastProfitableOrder = orders.stream()
-                    .min(comparing(OrderDTO::getTotalAmount))
+                    .min(comparing(ReportOrderDTO::getTotalAmount))
                     .map(order -> Map.of(order.getProduct(), order.getTotalAmount()))
                     .orElse(Map.of("No order", BigDecimal.ZERO));
 
             Map<String, BigDecimal> mostProfitableOrder = orders.stream()
-                    .max(comparing(OrderDTO::getTotalAmount))
+                    .max(comparing(ReportOrderDTO::getTotalAmount))
                     .map(order -> Map.of(order.getProduct(), order.getTotalAmount()))
                     .orElse(Map.of("No order", BigDecimal.ZERO));
 

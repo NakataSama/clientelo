@@ -1,7 +1,6 @@
 package br.com.alura.clientelo.report;
 
-import br.com.alura.clientelo.dataprocessor.DataProcessor;
-import br.com.alura.clientelo.store.order.Order;
+import br.com.alura.clientelo.fileprocessor.FileProcessor;
 import br.com.alura.clientelo.report.impl.MostExpensiveProductsPerCategory;
 import br.com.alura.clientelo.report.result.Result;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,14 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class MostExpensiveProductsPerCategoryTest {
 
     private MostExpensiveProductsPerCategory subject;
-    private List<Order> orders;
+    private List<ReportOrderDTO> orders;
     private String filePath;
 
     @BeforeEach
     public void setUp() throws Exception {
         subject = new MostExpensiveProductsPerCategory();
         filePath = "pedidos.json";
-        orders = new DataProcessor().processFile(filePath);
+        orders = new FileProcessor().processFile(filePath);
     }
 
     @Test

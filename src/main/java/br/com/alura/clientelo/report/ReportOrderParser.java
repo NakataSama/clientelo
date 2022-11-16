@@ -1,13 +1,13 @@
-package br.com.alura.clientelo.dataprocessor.order;
+package br.com.alura.clientelo.report;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class OrderParser {
+public class ReportOrderParser {
 
-    public static List<OrderDTO> parse(List<String[]> content) {
+    public static List<ReportOrderDTO> parse(List<String[]> content) {
         return content.stream().skip(1)
                 .map(order -> {
                     String category = order[0];
@@ -16,7 +16,7 @@ public class OrderParser {
                     int quantity = Integer.parseInt(order[3]);
                     LocalDate date = LocalDate.parse(order[4], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     String customer = order[5];
-                    return new OrderDTO(category, product, customer, price, quantity, date);
+                    return new ReportOrderDTO(category, product, customer, price, quantity, date);
                 }).toList();
     }
 }

@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.store.order;
 
 import br.com.alura.clientelo.store.customer.Customer;
+import br.com.alura.clientelo.store.orderitem.OrderItem;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -21,7 +22,7 @@ public class Order {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
@@ -31,7 +32,7 @@ public class Order {
     private DiscountType discountType;
 
     @Transient
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "order")
     private List<OrderItem> items;
 
     public Order() {}
@@ -49,7 +50,6 @@ public class Order {
         this.customer = customer;
         this.discount = discount;
         this.discountType = discountType;
-        this.items = items;
     }
 
     public Long getId() {

@@ -1,15 +1,15 @@
 package br.com.alura.clientelo.report.result.impl;
 
-import br.com.alura.clientelo.dataprocessor.order.OrderDTO;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.result.Result;
 
 import java.util.List;
 
 public class TopSellingProductsResult implements Result {
 
-    private final List<OrderDTO> information;
+    private final List<ReportOrderDTO> information;
 
-    public TopSellingProductsResult(List<OrderDTO> information) {
+    public TopSellingProductsResult(List<ReportOrderDTO> information) {
         this.information = information;
     }
 

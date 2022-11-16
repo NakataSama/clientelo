@@ -1,8 +1,10 @@
 package br.com.alura.clientelo.store.customer;
 
 
+import br.com.alura.clientelo.store.order.Order;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +20,10 @@ public class Customer {
     private String phone;
     @Embedded
     private Address address;
+
+    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<Order> orders;
 
     public Customer() {}
 

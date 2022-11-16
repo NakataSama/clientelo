@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.dataprocessor.order.OrderDTO;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.LoyalCustomersResult;
@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toMap;
 public class LoyalCustomers implements Report {
 
     @Override
-    public Result process(List<OrderDTO> orders, Integer customerLimit) {
+    public Result process(List<ReportOrderDTO> orders, Integer customerLimit) {
         try {
             if (orders == null || orders.isEmpty())
                 throw new RuntimeException("No orders available");
@@ -22,12 +22,12 @@ public class LoyalCustomers implements Report {
             LinkedHashMap<String, Integer> result;
 
             long customerCount = orders.stream()
-                    .map(OrderDTO::getCustomer)
+                    .map(ReportOrderDTO::getCustomer)
                     .distinct()
                     .count();
 
             Stream<String> customers = orders.stream()
-                    .map(OrderDTO::getCustomer)
+                    .map(ReportOrderDTO::getCustomer)
                     .distinct()
                     .limit(customerLimit != null ? customerLimit : customerCount)
                     .sorted();

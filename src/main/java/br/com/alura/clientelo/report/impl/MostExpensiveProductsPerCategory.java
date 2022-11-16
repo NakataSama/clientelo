@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.dataprocessor.order.OrderDTO;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.MostExpensiveProductsPerCategoryResult;
@@ -16,7 +16,7 @@ public class MostExpensiveProductsPerCategory implements Report {
     public record Information(String product, BigDecimal price) { }
 
     @Override
-    public Result process(List<OrderDTO> orders, Integer categoryLimit) {
+    public Result process(List<ReportOrderDTO> orders, Integer categoryLimit) {
         try {
             if (orders == null || orders.isEmpty())
                 throw new RuntimeException("No orders available");
@@ -24,27 +24,27 @@ public class MostExpensiveProductsPerCategory implements Report {
             LinkedHashMap<String, Information> result = new LinkedHashMap<>();
 
             long categoryCount = orders.stream()
-                    .map(OrderDTO::getCategory)
+                    .map(ReportOrderDTO::getCategory)
                     .distinct()
                     .count();
 
             Stream<String> categories = orders.stream()
-                    .map(OrderDTO::getCategory)
+                    .map(ReportOrderDTO::getCategory)
                     .distinct()
                     .limit(categoryLimit != null ? categoryLimit : categoryCount)
                     .sorted();
 
             categories.forEach(category -> {
 
-                List<OrderDTO> filteredOrders = orders.stream().filter(order -> order.getCategory().equals(category))
-                        .sorted(Comparator.comparing(OrderDTO::getPrice).reversed()).toList();
+                List<ReportOrderDTO> filteredOrders = orders.stream().filter(order -> order.getCategory().equals(category))
+                        .sorted(Comparator.comparing(ReportOrderDTO::getPrice).reversed()).toList();
 
                 String product = filteredOrders.stream()
-                        .map(OrderDTO::getProduct)
+                        .map(ReportOrderDTO::getProduct)
                         .findFirst().orElse("No product");
 
                 BigDecimal price = filteredOrders.stream()
-                        .map(OrderDTO::getPrice)
+                        .map(ReportOrderDTO::getPrice)
                         .findFirst().orElse(BigDecimal.ZERO);
 
                 result.put(category, new Information(product, price));

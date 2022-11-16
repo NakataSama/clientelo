@@ -3,7 +3,7 @@ package br.com.alura.clientelo.store;
 import java.util.List;
 import java.util.Optional;
 
-public interface JPADao<T> {
+public interface DAO<T> {
 
     void create(T object);
     Optional<T> getById(long id);

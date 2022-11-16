@@ -1,31 +1,31 @@
-package br.com.alura.clientelo.store.category;
+package br.com.alura.clientelo.store.customer;
 
-import br.com.alura.clientelo.store.JPADao;
+import br.com.alura.clientelo.store.DAO;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CategoryDao implements JPADao<Category> {
+public class CustomerDAO implements DAO<Customer> {
 
     private EntityManager em;
 
-    public CategoryDao(EntityManager em) {
+    public CustomerDAO(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public void create(Category category) {
+    public void create(Customer customer) {
         em.getTransaction().begin();
-        em.persist(category);
+        em.persist(customer);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public Optional<Category> getById(long id) {
+    public Optional<Customer> getById(long id) {
         em.getTransaction().begin();
-        Optional<Category> response = Optional.of(em.find(Category.class, id));
+        Optional<Customer> response = Optional.of(em.find(Customer.class, id));
         em.getTransaction().commit();
         em.close();
 
@@ -33,25 +33,25 @@ public class CategoryDao implements JPADao<Category> {
     }
 
     @Override
-    public void update(Category category) {
+    public void update(Customer customer) {
         em.getTransaction().begin();
-        em.merge(category);
+        em.merge(customer);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public void remove(Category category) {
+    public void remove(Customer customer) {
         em.getTransaction().begin();
-        em.remove(category);
+        em.remove(customer);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public List<Category> getAll() {
+    public List<Customer> getAll() {
         em.getTransaction().begin();
-        List<Category> response = em.createQuery("SELECT c FROM category c", Category.class).getResultList();
+        List<Customer> response = em.createQuery("SELECT c FROM customer c", Customer.class).getResultList();
         em.getTransaction().commit();
         em.close();
 

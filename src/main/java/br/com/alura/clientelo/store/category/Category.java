@@ -17,9 +17,8 @@ public class Category {
 
     public Category() {}
 
-    public Category(String name, boolean active) {
+    public Category(String name) {
         this.name = name;
-        this.active = active;
     }
 
     public Long getId() {

@@ -1,7 +1,10 @@
 package br.com.alura.clientelo.store.customer;
 
+import jakarta.persistence.Embeddable;
+
 import java.util.Objects;
 
+@Embeddable
 public class Address {
 
     private String street;

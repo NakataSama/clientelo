@@ -1,31 +1,31 @@
 package br.com.alura.clientelo.store.order;
 
-import br.com.alura.clientelo.store.JPADao;
+import br.com.alura.clientelo.store.DAO;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 import java.util.Optional;
 
-public class OrderItemDao implements JPADao<OrderItem> {
+public class OrderDAO implements DAO<Order> {
 
     private EntityManager em;
 
-    public OrderItemDao(EntityManager em) {
+    public OrderDAO(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public void create(OrderItem orderItem) {
+    public void create(Order order) {
         em.getTransaction().begin();
-        em.persist(orderItem);
+        em.persist(order);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public Optional<OrderItem> getById(long id) {
+    public Optional<Order> getById(long id) {
         em.getTransaction().begin();
-        Optional<OrderItem> response = Optional.of(em.find(OrderItem.class, id));
+        Optional<Order> response = Optional.of(em.find(Order.class, id));
         em.getTransaction().commit();
         em.close();
 
@@ -33,25 +33,25 @@ public class OrderItemDao implements JPADao<OrderItem> {
     }
 
     @Override
-    public void update(OrderItem orderItem) {
+    public void update(Order order) {
         em.getTransaction().begin();
-        em.merge(orderItem);
+        em.merge(order);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public void remove(OrderItem orderItem) {
+    public void remove(Order order) {
         em.getTransaction().begin();
-        em.remove(orderItem);
+        em.remove(order);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public List<OrderItem> getAll() {
+    public List<Order> getAll() {
         em.getTransaction().begin();
-        List<OrderItem> response = em.createQuery("SELECT oi FROM orderItem oi", OrderItem.class).getResultList();
+        List<Order> response = em.createQuery("SELECT o FROM order o", Order.class).getResultList();
         em.getTransaction().commit();
         em.close();
 

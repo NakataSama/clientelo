@@ -1,57 +1,57 @@
-package br.com.alura.clientelo.store.product;
+package br.com.alura.clientelo.store.category;
 
-import br.com.alura.clientelo.store.JPADao;
+import br.com.alura.clientelo.store.DAO;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ProductDao implements JPADao<Product> {
+public class CategoryDAO implements DAO<Category> {
 
     private EntityManager em;
 
-    public ProductDao(EntityManager em) {
+    public CategoryDAO(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public void create(Product product) {
+    public void create(Category category) {
         em.getTransaction().begin();
-        em.persist(product);
+        em.persist(category);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public Optional<Product> getById(long id) {
+    public Optional<Category> getById(long id) {
         em.getTransaction().begin();
-        Optional<Product> response = Optional.of(em.find(Product.class, id));
+        Category response = em.find(Category.class, id);
         em.getTransaction().commit();
         em.close();
 
-        return response;
+        return Optional.ofNullable(response);
     }
 
     @Override
-    public void update(Product product) {
+    public void update(Category category) {
         em.getTransaction().begin();
-        em.merge(product);
-        em.getTransaction().commit();
-        em.close();
-    }
-
-    @Override
-    public void remove(Product product) {
-        em.getTransaction().begin();
-        em.remove(product);
+        em.merge(category);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public List<Product> getAll() {
+    public void remove(Category category) {
         em.getTransaction().begin();
-        List<Product> response = em.createQuery("SELECT p FROM product p", Product.class).getResultList();
+        em.remove(category);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    @Override
+    public List<Category> getAll() {
+        em.getTransaction().begin();
+        List<Category> response = em.createQuery("SELECT c FROM category c", Category.class).getResultList();
         em.getTransaction().commit();
         em.close();
 

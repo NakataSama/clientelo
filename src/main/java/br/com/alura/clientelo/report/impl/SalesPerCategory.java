@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.dataprocessor.order.OrderDTO;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.SalesPerCategoryResult;
@@ -15,7 +15,7 @@ public class SalesPerCategory implements Report {
     public record Information(Integer numberOfOrders, BigDecimal totalAmount) { }
 
     @Override
-    public Result process(List<OrderDTO> orders, Integer categoryLimit) {
+    public Result process(List<ReportOrderDTO> orders, Integer categoryLimit) {
         try {
             if (orders == null || orders.isEmpty())
                 throw new RuntimeException("No orders available");
@@ -23,28 +23,28 @@ public class SalesPerCategory implements Report {
             LinkedHashMap<String, Information> result = new LinkedHashMap<>();
 
             long categoryCount = orders.stream()
-                    .map(OrderDTO::getCategory)
+                    .map(ReportOrderDTO::getCategory)
                     .distinct()
                     .count();
 
             Stream<String> categories = orders.stream()
-                    .map(OrderDTO::getCategory)
+                    .map(ReportOrderDTO::getCategory)
                     .distinct()
                     .limit(categoryLimit != null ? categoryLimit : categoryCount)
                     .sorted();
 
             categories.forEach(category -> {
 
-                List<OrderDTO> ordersPerCategory = orders.stream()
+                List<ReportOrderDTO> ordersPerCategory = orders.stream()
                         .filter(order -> order.getCategory().equals(category))
                         .toList();
 
                 Integer numberOfOrders = ordersPerCategory.stream()
-                        .map(OrderDTO::getQuantity)
+                        .map(ReportOrderDTO::getQuantity)
                         .reduce(0, Integer::sum);
 
                 BigDecimal totalAmount = ordersPerCategory.stream()
-                        .map(OrderDTO::getTotalAmount)
+                        .map(ReportOrderDTO::getTotalAmount)
                         .reduce(BigDecimal.ZERO, BigDecimal::add);
 
                 result.put(category, new Information(numberOfOrders, totalAmount));

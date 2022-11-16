@@ -1,9 +1,9 @@
 package br.com.alura.clientelo.result;
 
-import br.com.alura.clientelo.dataprocessor.DataProcessor;
-import br.com.alura.clientelo.store.order.Order;
-import br.com.alura.clientelo.report.impl.TopSellingProducts;
+import br.com.alura.clientelo.fileprocessor.FileProcessor;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.mock.ResultMocks;
+import br.com.alura.clientelo.report.impl.TopSellingProducts;
 import br.com.alura.clientelo.report.result.impl.TopSellingProductsResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,14 +17,14 @@ public class TopSellingProductsResultTest {
 
     private TopSellingProductsResult subject;
     private TopSellingProducts report;
-    private List<Order> orders;
+    private List<ReportOrderDTO> orders;
     private String filePath;
 
     @BeforeEach
     public void setUp() throws Exception {
         report = new TopSellingProducts();
         filePath = "pedidos.json";
-        orders = new DataProcessor().processFile(filePath);
+        orders = new FileProcessor().processFile(filePath);
     }
 
     @Test

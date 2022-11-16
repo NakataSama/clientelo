@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.dataprocessor.order;
+package br.com.alura.clientelo.report;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class OrderDTO {
+public class ReportOrderDTO {
 
     @JsonProperty("categoria")
     private String category;
@@ -22,9 +22,9 @@ public class OrderDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
-    public OrderDTO() {}
+    public ReportOrderDTO() {}
 
-    public OrderDTO(String category, String product, String customer, BigDecimal price, int quantity, LocalDate date) {
+    public ReportOrderDTO(String category, String product, String customer, BigDecimal price, int quantity, LocalDate date) {
         this.category = category;
         this.product = product;
         this.customer = customer;

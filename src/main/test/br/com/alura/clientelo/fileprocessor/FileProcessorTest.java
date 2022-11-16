@@ -1,6 +1,6 @@
-package br.com.alura.clientelo.dataprocessor;
+package br.com.alura.clientelo.fileprocessor;
 
-import br.com.alura.clientelo.store.order.Order;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,20 +10,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class DataProcessorTest {
+public class FileProcessorTest {
 
-    private DataProcessor subject;
+    private FileProcessor subject;
     private String filePath;
 
     @BeforeEach
     public void setUp() {
-        subject = new DataProcessor();
+        subject = new FileProcessor();
         filePath = "pedidos.json";
     }
 
     @Test
     public void shouldProcessData() {
-        List<Order> orders = subject.processFile(filePath);
+        List<ReportOrderDTO> orders = subject.processFile(filePath);
         assertEquals(orders.size(), 2);
     }
 

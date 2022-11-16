@@ -1,31 +1,31 @@
-package br.com.alura.clientelo.store.customer;
+package br.com.alura.clientelo.store.orderitem;
 
-import br.com.alura.clientelo.store.JPADao;
+import br.com.alura.clientelo.store.DAO;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CustomerDao implements JPADao<Customer> {
+public class OrderItemDAO implements DAO<OrderItem> {
 
     private EntityManager em;
 
-    public CustomerDao(EntityManager em) {
+    public OrderItemDAO(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public void create(Customer customer) {
+    public void create(OrderItem orderItem) {
         em.getTransaction().begin();
-        em.persist(customer);
+        em.persist(orderItem);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public Optional<Customer> getById(long id) {
+    public Optional<OrderItem> getById(long id) {
         em.getTransaction().begin();
-        Optional<Customer> response = Optional.of(em.find(Customer.class, id));
+        Optional<OrderItem> response = Optional.of(em.find(OrderItem.class, id));
         em.getTransaction().commit();
         em.close();
 
@@ -33,25 +33,25 @@ public class CustomerDao implements JPADao<Customer> {
     }
 
     @Override
-    public void update(Customer customer) {
+    public void update(OrderItem orderItem) {
         em.getTransaction().begin();
-        em.merge(customer);
+        em.merge(orderItem);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public void remove(Customer customer) {
+    public void remove(OrderItem orderItem) {
         em.getTransaction().begin();
-        em.remove(customer);
+        em.remove(orderItem);
         em.getTransaction().commit();
         em.close();
     }
 
     @Override
-    public List<Customer> getAll() {
+    public List<OrderItem> getAll() {
         em.getTransaction().begin();
-        List<Customer> response = em.createQuery("SELECT c FROM customer c", Customer.class).getResultList();
+        List<OrderItem> response = em.createQuery("SELECT oi FROM orderItem oi", OrderItem.class).getResultList();
         em.getTransaction().commit();
         em.close();
 

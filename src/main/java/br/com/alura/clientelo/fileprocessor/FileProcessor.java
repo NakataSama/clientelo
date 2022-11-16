@@ -1,7 +1,7 @@
-package br.com.alura.clientelo.dataprocessor;
+package br.com.alura.clientelo.fileprocessor;
 
-import br.com.alura.clientelo.dataprocessor.order.OrderDTO;
-import br.com.alura.clientelo.dataprocessor.order.OrderParser;
+import br.com.alura.clientelo.report.ReportOrderDTO;
+import br.com.alura.clientelo.report.ReportOrderParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencsv.CSVReader;
@@ -17,15 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class DataProcessor {
+public class FileProcessor {
 
     private ObjectMapper objectMapper = new ObjectMapper();
     private final Pattern json = Pattern.compile("^.*\\.(json)$");
     private final Pattern csv = Pattern.compile("^.*\\.(csv)$");
 
-    public List<OrderDTO> processFile(String file) {
+    public List<ReportOrderDTO> processFile(String file) {
         try {
-            List<OrderDTO> response = new ArrayList<>();
+            List<ReportOrderDTO> response = new ArrayList<>();
             boolean isJson = json.matcher(file).find();
             boolean isCsv = csv.matcher(file).find();
 
@@ -50,17 +50,17 @@ public class DataProcessor {
         throw new FileNotFoundException();
     }
 
-    private List<OrderDTO> processCsv(URL file) throws IOException, URISyntaxException {
+    private List<ReportOrderDTO> processCsv(URL file) throws IOException, URISyntaxException {
         Reader reader = Files.newBufferedReader(Path.of(file.toURI()));
         CSVReader csvReader = new CSVReader(reader);
         List<String[]> orders = csvReader.readAll();
 
-        return OrderParser.parse(orders);
+        return ReportOrderParser.parse(orders);
     }
 
-    private List<OrderDTO> processJson(URL file) throws IOException {
+    private List<ReportOrderDTO> processJson(URL file) throws IOException {
         objectMapper.registerModule(new JavaTimeModule());
-        OrderDTO[] orders = objectMapper.readValue(file, OrderDTO[].class);
+        ReportOrderDTO[] orders = objectMapper.readValue(file, ReportOrderDTO[].class);
         return List.of(orders);
     }
 }

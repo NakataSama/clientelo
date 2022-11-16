@@ -1,5 +1,6 @@
-package br.com.alura.clientelo.store.order;
+package br.com.alura.clientelo.store.orderitem;
 
+import br.com.alura.clientelo.store.order.Order;
 import br.com.alura.clientelo.store.product.Product;
 
 import jakarta.persistence.*;
@@ -10,18 +11,18 @@ import java.util.Objects;
 @Table(name = "order_item")
 public class OrderItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     private BigDecimal price;
 
     private Integer quantity;
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Order.class)
+    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Order.class)
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id")
     private Product product;
 
