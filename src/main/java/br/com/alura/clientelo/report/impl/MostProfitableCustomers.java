@@ -4,6 +4,7 @@ import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.MostProfitableCustomersResult;
+import br.com.alura.clientelo.store.customer.vo.MostProfitableCustomersVO;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -49,6 +50,20 @@ public class MostProfitableCustomers implements Report {
 
                 result.put(customer, new Information(numberOfOrders, totalAmount));
             });
+
+            return new MostProfitableCustomersResult(result);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
+    }
+
+    public Result processFromDatabase(List<MostProfitableCustomersVO> information, Integer customerLimit) {
+        try {
+            LinkedHashMap<String, Information> result = new LinkedHashMap<>();
+
+            information.stream()
+                    .limit(customerLimit != null ? customerLimit : information.size())
+                    .forEach(info -> result.put(info.getName(), new Information(Math.toIntExact(info.getNumberOfOrders()), info.getTotalAmount())));
 
             return new MostProfitableCustomersResult(result);
         } catch (Exception e) {

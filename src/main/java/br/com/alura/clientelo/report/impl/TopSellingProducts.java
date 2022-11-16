@@ -1,14 +1,18 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.TopSellingProductsResult;
+import br.com.alura.clientelo.store.product.vo.TopSellingProductsVO;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class TopSellingProducts implements Report {
+
+    public record Information(String category, String product, long quantity) { }
     @Override
     public Result process(List<ReportOrderDTO> orders, Integer orderLimit) {
         try {
@@ -20,7 +24,26 @@ public class TopSellingProducts implements Report {
                     .limit(orderLimit != null ? orderLimit : orders.size())
                     .toList();
 
-            return new TopSellingProductsResult(orders);
+            List<Information> result = orders.stream()
+                    .map(order -> new Information(order.getCategory(), order.getProduct(), order.getQuantity())).toList();
+
+            return new TopSellingProductsResult(result);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
+    }
+
+    public Result processFromDatabase(List<TopSellingProductsVO> information, Integer categoryLimit) {
+        try {
+            List<TopSellingProducts.Information> result = new ArrayList<>();
+
+            information.stream()
+                    .limit(categoryLimit != null ? categoryLimit : information.size())
+                    .forEach(info -> {
+                        result.add(new Information(info.getCategory(), info.getProduct(), info.getQuantity()));
+                    });
+
+            return new TopSellingProductsResult(result);
         } catch (Exception e) {
             throw new RuntimeException(String.format("Error while processing report: %s", e));
         }

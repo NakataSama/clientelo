@@ -31,8 +31,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private DiscountType discountType;
 
-    @Transient
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "order")
     private List<OrderItem> items;
 
     public Order() {}

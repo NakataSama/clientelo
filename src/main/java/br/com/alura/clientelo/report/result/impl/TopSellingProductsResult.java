@@ -1,15 +1,15 @@
 package br.com.alura.clientelo.report.result.impl;
 
-import br.com.alura.clientelo.report.ReportOrderDTO;
+import br.com.alura.clientelo.report.impl.TopSellingProducts;
 import br.com.alura.clientelo.report.result.Result;
 
 import java.util.List;
 
 public class TopSellingProductsResult implements Result {
 
-    private final List<ReportOrderDTO> information;
+    private final List<TopSellingProducts.Information> information;
 
-    public TopSellingProductsResult(List<ReportOrderDTO> information) {
+    public TopSellingProductsResult(List<TopSellingProducts.Information> information) {
         this.information = information;
     }
 
@@ -21,9 +21,9 @@ public class TopSellingProductsResult implements Result {
             response.append("\n");
 
             information.forEach(order -> {
-                response.append(String.format("CATEGORIA: %s \n", order.getCategory()));
-                response.append(String.format("PRODUTO: %s \n", order.getProduct()));
-                response.append(String.format("QUANTIDADE VENDIDA: %s \n", order.getQuantity()));
+                response.append(String.format("CATEGORIA: %s \n", order.category()));
+                response.append(String.format("PRODUTO: %s \n", order.product()));
+                response.append(String.format("QUANTIDADE VENDIDA: %s \n", order.quantity()));
                 response.append("\n");
             });
 

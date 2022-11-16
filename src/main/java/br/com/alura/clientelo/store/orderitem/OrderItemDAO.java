@@ -16,45 +16,27 @@ public class OrderItemDAO implements DAO<OrderItem> {
 
     @Override
     public void create(OrderItem orderItem) {
-        em.getTransaction().begin();
         em.persist(orderItem);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public Optional<OrderItem> getById(long id) {
-        em.getTransaction().begin();
-        Optional<OrderItem> response = Optional.of(em.find(OrderItem.class, id));
-        em.getTransaction().commit();
-        em.close();
-
-        return response;
+        return Optional.ofNullable(em.find(OrderItem.class, id));
     }
 
     @Override
     public void update(OrderItem orderItem) {
-        em.getTransaction().begin();
         em.merge(orderItem);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public void remove(OrderItem orderItem) {
-        em.getTransaction().begin();
         em.remove(orderItem);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public List<OrderItem> getAll() {
-        em.getTransaction().begin();
-        List<OrderItem> response = em.createQuery("SELECT oi FROM orderItem oi", OrderItem.class).getResultList();
-        em.getTransaction().commit();
-        em.close();
-
+        List<OrderItem> response = em.createQuery("SELECT oi FROM OrderItem oi", OrderItem.class).getResultList();
         return response;
     }
 }

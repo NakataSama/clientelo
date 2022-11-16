@@ -18,11 +18,11 @@ public class OrderItem {
     private BigDecimal price;
 
     private Integer quantity;
-    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Order.class)
+    @ManyToOne(targetEntity = Order.class)
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -33,13 +33,13 @@ public class OrderItem {
 
     public OrderItem() {}
 
-    public OrderItem(BigDecimal price, Integer quantity, Order order, Product product, BigDecimal discount, OrderItemDiscountType orderItemDiscountType) {
-        this.price = price;
+    public OrderItem(Integer quantity, Order order, Product product, BigDecimal discount, OrderItemDiscountType orderItemDiscountType) {
         this.quantity = quantity;
         this.order = order;
         this.product = product;
         this.discount = discount;
         this.orderItemDiscountType = orderItemDiscountType;
+        this.price = product.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
     public Long getId() {

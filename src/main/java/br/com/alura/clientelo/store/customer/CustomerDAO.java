@@ -1,6 +1,10 @@
 package br.com.alura.clientelo.store.customer;
 
 import br.com.alura.clientelo.store.DAO;
+import br.com.alura.clientelo.store.customer.vo.LoyalCustomersVO;
+import br.com.alura.clientelo.store.customer.vo.MostProfitableCustomersVO;
+import br.com.alura.clientelo.store.order.Order;
+import br.com.alura.clientelo.store.orderitem.OrderItem;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -16,45 +20,45 @@ public class CustomerDAO implements DAO<Customer> {
 
     @Override
     public void create(Customer customer) {
-        em.getTransaction().begin();
         em.persist(customer);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public Optional<Customer> getById(long id) {
-        em.getTransaction().begin();
-        Optional<Customer> response = Optional.of(em.find(Customer.class, id));
-        em.getTransaction().commit();
-        em.close();
-
-        return response;
+        return Optional.ofNullable(em.find(Customer.class, id));
     }
 
     @Override
     public void update(Customer customer) {
-        em.getTransaction().begin();
         em.merge(customer);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public void remove(Customer customer) {
-        em.getTransaction().begin();
         em.remove(customer);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public List<Customer> getAll() {
-        em.getTransaction().begin();
-        List<Customer> response = em.createQuery("SELECT c FROM customer c", Customer.class).getResultList();
-        em.getTransaction().commit();
-        em.close();
+        return em.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
+    }
 
-        return response;
+    public List<MostProfitableCustomersVO> getMostProfitableCustomers() {
+        String query = "SELECT new br.com.alura.clientelo.store.customer.vo.MostProfitableCustomersVO(c.name, count(o.id), sum(oi.price) AS total) FROM "+ Order.class.getSimpleName() + " o " +
+                "JOIN " + Customer.class.getSimpleName() + " c on c.id = o.customer.id " +
+                "JOIN " + OrderItem.class.getSimpleName() + " oi on oi.order.id = o.id " +
+                "GROUP BY c.name " +
+                "ORDER BY total DESC";
+
+        return em.createQuery(query, MostProfitableCustomersVO.class).getResultList();
+    }
+
+    public List<LoyalCustomersVO> getLoyalCustomers() {
+        String query = "SELECT new br.com.alura.clientelo.store.customer.vo.LoyalCustomersVO(c.name, count(o.id) as numberOfOrders) FROM "+ Customer.class.getSimpleName() + " c " +
+                "JOIN " + Order.class.getSimpleName() + " o on o.customer.id = c.id " +
+                "GROUP BY c.id " +
+                "ORDER BY numberOfOrders DESC";
+
+        return em.createQuery(query, LoyalCustomersVO.class).getResultList();
     }
 }

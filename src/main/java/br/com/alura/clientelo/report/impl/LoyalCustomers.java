@@ -1,9 +1,10 @@
 package br.com.alura.clientelo.report.impl;
 
-import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
+import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.LoyalCustomersResult;
+import br.com.alura.clientelo.store.customer.vo.LoyalCustomersVO;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -35,6 +36,20 @@ public class LoyalCustomers implements Report {
             result = customers.collect(toMap(customer -> customer, customer -> orders.stream()
                     .filter(order -> order.getCustomer().equals(customer))
                     .toList().size(), (k, v) -> k, LinkedHashMap::new));
+
+            return new LoyalCustomersResult(result);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
+    }
+
+    public Result processFromDatabase(List<LoyalCustomersVO> information, Integer customerLimit) {
+        try {
+            LinkedHashMap<String, Integer> result = new LinkedHashMap<>();
+
+            information.stream()
+                    .limit(customerLimit != null ? customerLimit : information.size())
+                    .forEach(info -> result.put(info.getName(), Math.toIntExact(info.getNumberOfOrders())));
 
             return new LoyalCustomersResult(result);
         } catch (Exception e) {

@@ -4,6 +4,7 @@ import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.SalesPerCategoryResult;
+import br.com.alura.clientelo.store.category.vo.SalesPerCategoryVO;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -49,6 +50,19 @@ public class SalesPerCategory implements Report {
 
                 result.put(category, new Information(numberOfOrders, totalAmount));
             });
+
+            return new SalesPerCategoryResult(result);
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error while processing report: %s", e));
+        }
+    }
+    public Result processFromDatabase(List<SalesPerCategoryVO> information, Integer categoryLimit) {
+        try {
+            LinkedHashMap<String, Information> result = new LinkedHashMap<>();
+
+            information.stream()
+                    .limit(categoryLimit != null ? categoryLimit : information.size())
+                    .forEach(info -> result.put(info.getName(), new Information(Math.toIntExact(info.getQuantity()), info.getTotalAmount())));
 
             return new SalesPerCategoryResult(result);
         } catch (Exception e) {

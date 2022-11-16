@@ -1,6 +1,8 @@
 package br.com.alura.clientelo.store.product;
 
 import br.com.alura.clientelo.store.DAO;
+import br.com.alura.clientelo.store.orderitem.OrderItem;
+import br.com.alura.clientelo.store.product.vo.TopSellingProductsVO;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -16,45 +18,35 @@ public class ProductDAO implements DAO<Product> {
 
     @Override
     public void create(Product product) {
-        em.getTransaction().begin();
         em.persist(product);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public Optional<Product> getById(long id) {
-        em.getTransaction().begin();
-        Optional<Product> response = Optional.of(em.find(Product.class, id));
-        em.getTransaction().commit();
-        em.close();
-
-        return response;
+        return Optional.ofNullable(em.find(Product.class, id));
     }
 
     @Override
     public void update(Product product) {
-        em.getTransaction().begin();
         em.merge(product);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public void remove(Product product) {
-        em.getTransaction().begin();
         em.remove(product);
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public List<Product> getAll() {
-        em.getTransaction().begin();
-        List<Product> response = em.createQuery("SELECT p FROM product p", Product.class).getResultList();
-        em.getTransaction().commit();
-        em.close();
+        return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
+    }
 
-        return response;
+    public List<TopSellingProductsVO> getTopSellingProducts() {
+        String query = "SELECT new br.com.alura.clientelo.store.product.vo.TopSellingProductsVO(p.category.name, p.name, sum(oi.quantity) as quantity) FROM "+ Product.class.getSimpleName() + " p " +
+                "JOIN " + OrderItem.class.getSimpleName() + " oi on oi.product.id = p.id " +
+                "GROUP BY p.id " +
+                "ORDER BY quantity DESC";
+
+        return em.createQuery(query, TopSellingProductsVO.class).getResultList();
     }
 }
