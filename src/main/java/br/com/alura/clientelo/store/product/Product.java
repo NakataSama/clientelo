@@ -2,7 +2,7 @@ package br.com.alura.clientelo.store.product;
 
 import br.com.alura.clientelo.store.category.Category;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity

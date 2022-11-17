@@ -23,4 +23,13 @@ public class TopSellingProductsVO {
     public long getQuantity() {
         return quantity;
     }
+
+    @Override
+    public String toString() {
+        return "TopSellingProductsVO{" +
+                "category='" + category + '\'' +
+                ", product='" + product + '\'' +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

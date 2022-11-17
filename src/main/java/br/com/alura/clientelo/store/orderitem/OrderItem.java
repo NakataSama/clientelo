@@ -3,7 +3,7 @@ package br.com.alura.clientelo.store.orderitem;
 import br.com.alura.clientelo.store.order.Order;
 import br.com.alura.clientelo.store.product.Product;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 

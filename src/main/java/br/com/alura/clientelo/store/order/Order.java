@@ -3,7 +3,7 @@ package br.com.alura.clientelo.store.order;
 import br.com.alura.clientelo.store.customer.Customer;
 import br.com.alura.clientelo.store.orderitem.OrderItem;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,7 +18,6 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
@@ -31,7 +30,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private DiscountType discountType;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderItem> items;
 
     public Order() {}

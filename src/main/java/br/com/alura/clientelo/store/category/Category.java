@@ -1,7 +1,6 @@
 package br.com.alura.clientelo.store.category;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -56,5 +55,14 @@ public class Category {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, active);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", active=" + active +
+                '}';
     }
 }
