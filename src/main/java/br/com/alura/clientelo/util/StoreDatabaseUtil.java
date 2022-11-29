@@ -46,6 +46,8 @@ public class StoreDatabaseUtil {
         generateCustomers(10);
         generateProducts(20);
         generateOrders(20);
+        List<Category> allCategories = categoryRepository.findAll();
+        allCategories.forEach(System.out::println);
     }
 
     public void testReports() {
@@ -75,15 +77,26 @@ public class StoreDatabaseUtil {
     }
 
     private void generateCategories() {
-        List<Category> allCategories = (List<Category>) categoryRepository.findAll();
+        List<Category> allCategories = categoryRepository.findAll();
         Category category1 = new Category("COMPUTERS");
         Category category2 = new Category("TOYS");
         Category category3 = new Category("CLOTHING");
         Category category4 = new Category("GAMES");
         Category category5 = new Category("HOUSEWARE");
         Category category6 = new Category("FURNITURE");
+        List<Category> categories = new ArrayList<>();
+        categories.add(category1);
+        categories.add(category2);
+        categories.add(category3);
+        categories.add(category4);
+        categories.add(category5);
+        categories.add(category6);
 
-        List<Category> categories = List.of(category1, category2, category3, category4, category5, category6);
+        List<String> categoryNames = allCategories.stream().map(Category::getName).toList();
+
+        for (String name : categoryNames) {
+            categories.removeIf(category -> category.getName().equals(name));
+        }
         categoryRepository.saveAll(categories);
     }
 
