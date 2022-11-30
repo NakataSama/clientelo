@@ -2,8 +2,8 @@ package br.com.alura.clientelo.store.customer;
 
 
 import br.com.alura.clientelo.store.order.Order;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 

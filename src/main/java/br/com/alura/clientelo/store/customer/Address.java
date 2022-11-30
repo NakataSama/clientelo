@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.store.customer;
 
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 import java.util.Objects;
 

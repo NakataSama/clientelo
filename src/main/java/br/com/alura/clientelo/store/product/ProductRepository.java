@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    Optional<Product> findById(Long id);
 
     @Query("SELECT new br.com.alura.clientelo.store.product.vo.TopSellingProductsVO(p.category.name, p.name, sum(oi.quantity) as quantity) FROM Product p JOIN OrderItem oi on oi.product.id = p.id GROUP BY p.id ORDER BY quantity DESC")
     List<TopSellingProductsVO> getTopSellingProducts();

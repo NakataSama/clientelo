@@ -2,7 +2,7 @@ package br.com.alura.clientelo.store.product;
 
 import br.com.alura.clientelo.store.category.Category;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -77,5 +77,16 @@ public class Product {
         this.description = description;
         this.itemsInStock = itemsInStock;
         this.category = category;
+    }
+
+    public boolean removeFromStock(Integer quantity) {
+        if(itemsInStock == 0)
+            throw new RuntimeException("No available items in stock.");
+
+        if(quantity > itemsInStock)
+            throw new RuntimeException("Not this many items in stock.");
+
+        this.itemsInStock-= quantity;
+        return true;
     }
 }

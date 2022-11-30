@@ -12,7 +12,7 @@ import br.com.alura.clientelo.store.customer.Customer;
 import br.com.alura.clientelo.store.customer.CustomerRepository;
 import br.com.alura.clientelo.store.customer.vo.LoyalCustomersVO;
 import br.com.alura.clientelo.store.customer.vo.MostProfitableCustomersVO;
-import br.com.alura.clientelo.store.order.DiscountType;
+import br.com.alura.clientelo.store.order.OrderDiscountType;
 import br.com.alura.clientelo.store.order.Order;
 import br.com.alura.clientelo.store.order.OrderRepository;
 import br.com.alura.clientelo.store.orderitem.OrderItem;
@@ -150,8 +150,7 @@ public class StoreDatabaseUtil {
             Order order = new Order(
                     LocalDate.now(),
                     customers.get(ThreadLocalRandom.current().nextInt(customers.size())),
-                    BigDecimal.ZERO,
-                    DiscountType.NONE
+                    OrderDiscountType.NONE
             );
 
             List<OrderItem> items = new ArrayList<>();
@@ -160,7 +159,6 @@ public class StoreDatabaseUtil {
                         ThreadLocalRandom.current().nextInt(1, 5),
                         order,
                         products.get(ThreadLocalRandom.current().nextInt(products.size())),
-                        BigDecimal.ZERO,
                         OrderItemDiscountType.NONE
                 );
 
