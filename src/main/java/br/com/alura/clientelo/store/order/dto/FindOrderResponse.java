@@ -64,16 +64,13 @@ public class FindOrderResponse {
     }
 
     public static class ProductResponse {
-        private Long id;
-        private String name;
-        private String category;
-        private Integer quantity;
-        private BigDecimal price;
+        private final Long id;
+        private final String name;
+        private final String category;
+        private final Integer quantity;
+        private final BigDecimal price;
         private BigDecimal total;
         private BigDecimal discount;
-
-        public ProductResponse() {
-        }
 
         public ProductResponse(Long id, String name, String category, Integer quantity, BigDecimal price, BigDecimal total, BigDecimal discount) {
             this.id = id;
@@ -89,56 +86,28 @@ public class FindOrderResponse {
             return id;
         }
 
-        public void setId(Long id) {
-            this.id = id;
-        }
-
         public String getName() {
             return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         public String getCategory() {
             return category;
         }
 
-        public void setCategory(String category) {
-            this.category = category;
-        }
-
         public Integer getQuantity() {
             return quantity;
-        }
-
-        public void setQuantity(Integer quantity) {
-            this.quantity = quantity;
         }
 
         public BigDecimal getPrice() {
             return price;
         }
 
-        public void setPrice(BigDecimal price) {
-            this.price = price;
-        }
-
         public BigDecimal getTotal() {
             return total;
         }
 
-        public void setTotal(BigDecimal total) {
-            this.total = total;
-        }
-
         public BigDecimal getDiscount() {
             return discount;
-        }
-
-        public void setDiscount(BigDecimal discount) {
-            this.discount = discount;
         }
     }
 }

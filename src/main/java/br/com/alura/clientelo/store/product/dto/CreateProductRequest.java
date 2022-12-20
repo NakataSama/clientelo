@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.store.product.dto;
 
 import br.com.alura.clientelo.store.category.Category;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,6 +15,7 @@ public class CreateProductRequest {
     private final String name;
     @DecimalMin("0.1")
     private final BigDecimal price;
+    @Nullable
     private final String description;
     @NotNull
     private final Integer itemsInStock;

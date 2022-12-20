@@ -1,10 +1,10 @@
 package br.com.alura.clientelo.store.category.dto;
 
-import org.hibernate.validator.constraints.Length;
+import jakarta.validation.constraints.Size;
 
 public class CreateCategoryRequest {
 
-    @Length(min = 2)
+    @Size(min = 2)
     private final String name;
 
     public CreateCategoryRequest(String name) {

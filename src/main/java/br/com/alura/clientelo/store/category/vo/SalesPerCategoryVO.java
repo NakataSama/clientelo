@@ -7,6 +7,9 @@ public class SalesPerCategoryVO {
     private long quantity;
     private BigDecimal totalAmount;
 
+    public SalesPerCategoryVO() {
+    }
+
     public SalesPerCategoryVO(String name, long quantity, BigDecimal totalAmount) {
         this.name = name;
         this.quantity = quantity;
@@ -17,12 +20,24 @@ public class SalesPerCategoryVO {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public long getQuantity() {
         return quantity;
     }
 
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
+    }
+
     public BigDecimal getTotalAmount() {
         return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FindOrderResponse> getOrder(@PathVariable Long id) {
+    public ResponseEntity<FindOrderResponse> getOrderDetails(@PathVariable Long id) {
         try {
             FindOrderResponse orderDetails = service.findOrderDetailsById(id);
             return new ResponseEntity<>(orderDetails, HttpStatus.OK);
@@ -51,7 +51,7 @@ public class OrderController {
             return new ResponseEntity<>(orders, HttpStatus.OK);
         } catch (Exception e) {
             throw new ResponseStatusException(
-                    HttpStatus.NO_CONTENT, "No products found", e
+                    HttpStatus.NO_CONTENT, "No Orders found", e
             );
         }
     }

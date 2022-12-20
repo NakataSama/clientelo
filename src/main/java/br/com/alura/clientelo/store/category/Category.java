@@ -65,4 +65,9 @@ public class Category {
                 ", active=" + active +
                 '}';
     }
+
+    public Category changeStatus() {
+        this.active = !isActive();
+        return this;
+    }
 }
