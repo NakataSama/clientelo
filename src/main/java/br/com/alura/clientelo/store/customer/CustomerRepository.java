@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.store.customer;
 
+import br.com.alura.clientelo.store.core.entity.customer.Customer;
 import br.com.alura.clientelo.store.customer.vo.LoyalCustomersVO;
 import br.com.alura.clientelo.store.customer.vo.MostProfitableCustomersVO;
 import org.springframework.data.jpa.repository.JpaRepository;

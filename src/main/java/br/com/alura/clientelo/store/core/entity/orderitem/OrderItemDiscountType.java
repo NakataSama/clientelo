@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.store.orderitem;
+package br.com.alura.clientelo.store.core.entity.orderitem;
 
 import java.math.BigDecimal;
 

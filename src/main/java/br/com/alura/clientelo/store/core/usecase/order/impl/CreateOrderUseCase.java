@@ -1,16 +1,18 @@
-package br.com.alura.clientelo.store.order;
+package br.com.alura.clientelo.store.core.usecase.order.impl;
 
-import br.com.alura.clientelo.store.customer.Customer;
+import br.com.alura.clientelo.store.core.entity.customer.Customer;
+import br.com.alura.clientelo.store.core.entity.order.Order;
+import br.com.alura.clientelo.store.core.entity.order.OrderDiscountType;
+import br.com.alura.clientelo.store.core.entity.product.Product;
 import br.com.alura.clientelo.store.customer.CustomerRepository;
-import br.com.alura.clientelo.store.order.dto.*;
-import br.com.alura.clientelo.store.product.Product;
+import br.com.alura.clientelo.store.order.OrderRepository;
+import br.com.alura.clientelo.store.order.dto.CreateOrderRequest;
+import br.com.alura.clientelo.store.order.dto.CreateOrderRequestConverter;
+import br.com.alura.clientelo.store.order.dto.OrderItemsInformation;
 import br.com.alura.clientelo.store.product.ProductRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,17 +20,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class OrderService {
+public class CreateOrderUseCase {
 
-    @Autowired
-    private OrderRepository orderRepository;
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Transactional
-    public Order create(CreateOrderRequest request) {
+    public Order execute(CreateOrderRequest request) {
 
         try {
             CreateOrderRequestConverter converter = new CreateOrderRequestConverter();
@@ -63,22 +65,4 @@ public class OrderService {
 
         throw new RuntimeException();
     }
-
-    public FindOrderResponse findOrderDetailsById(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow();
-        return new FindOrderResponseConverter().from(order);
-    }
-
-    public Page<FindAllOrdersResponse> findAll(Pageable pageable) {
-        List<Order> orders = orderRepository.findByOrderByDateDescCustomerNameAsc();
-        FindAllOrdersResponseConverter converter = new FindAllOrdersResponseConverter();
-        List<FindAllOrdersResponse> ordersResponse = orders.stream()
-                .map(converter::from).toList();
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), orders.size());
-
-        return new PageImpl<>(ordersResponse.subList(start, end), pageable, orders.size());
-    }
-
 }

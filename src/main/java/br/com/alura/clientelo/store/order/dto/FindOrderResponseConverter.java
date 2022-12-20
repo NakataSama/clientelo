@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.store.order.dto;
 
-import br.com.alura.clientelo.store.order.Order;
-import br.com.alura.clientelo.store.orderitem.OrderItem;
+import br.com.alura.clientelo.store.core.entity.order.Order;
+import br.com.alura.clientelo.store.core.entity.orderitem.OrderItem;
 
 import java.util.List;
 

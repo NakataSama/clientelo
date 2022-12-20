@@ -2,6 +2,8 @@ package br.com.alura.clientelo.store.category;
 
 import br.com.alura.clientelo.store.category.dto.CreateCategoryRequest;
 import br.com.alura.clientelo.store.category.vo.SalesPerCategoryVO;
+import br.com.alura.clientelo.store.core.entity.category.Category;
+import br.com.alura.clientelo.store.core.usecase.category.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +27,7 @@ public class CategoryController {
         try {
 
             Category category = service.save(request);
-            URI location = URI.create("/api/categories/%s".formatted(category.getId()));
+            URI location = URI.create("/api/categories/%d".formatted(category.getId()));
             HttpHeaders responseHeaders = new HttpHeaders();
 
             return new ResponseEntity<>(category, HttpStatus.CREATED);

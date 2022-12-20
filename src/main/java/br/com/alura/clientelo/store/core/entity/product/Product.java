@@ -1,6 +1,6 @@
-package br.com.alura.clientelo.store.product;
+package br.com.alura.clientelo.store.core.entity.product;
 
-import br.com.alura.clientelo.store.category.Category;
+import br.com.alura.clientelo.store.core.entity.category.Category;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;

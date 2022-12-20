@@ -1,7 +1,7 @@
-package br.com.alura.clientelo.store.customer;
+package br.com.alura.clientelo.store.core.entity.customer;
 
 
-import br.com.alura.clientelo.store.order.Order;
+import br.com.alura.clientelo.store.core.entity.order.Order;
 import jakarta.persistence.*;
 
 import java.util.List;

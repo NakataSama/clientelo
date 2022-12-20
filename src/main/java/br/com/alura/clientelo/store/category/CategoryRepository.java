@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.store.category;
 
 import br.com.alura.clientelo.store.category.vo.SalesPerCategoryVO;
+import br.com.alura.clientelo.store.core.entity.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

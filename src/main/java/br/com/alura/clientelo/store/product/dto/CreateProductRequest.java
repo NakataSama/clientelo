@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.store.product.dto;
 
-import br.com.alura.clientelo.store.category.Category;
+import br.com.alura.clientelo.store.core.entity.category.Category;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;

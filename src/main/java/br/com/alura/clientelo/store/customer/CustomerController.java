@@ -1,5 +1,7 @@
 package br.com.alura.clientelo.store.customer;
 
+import br.com.alura.clientelo.store.core.entity.customer.Customer;
+import br.com.alura.clientelo.store.core.usecase.customer.CustomerService;
 import br.com.alura.clientelo.store.customer.dto.CreateCustomerRequest;
 import br.com.alura.clientelo.store.customer.dto.FindAllCustomersResponse;
 import jakarta.validation.Valid;

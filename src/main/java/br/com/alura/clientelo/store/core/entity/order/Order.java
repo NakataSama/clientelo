@@ -1,8 +1,8 @@
-package br.com.alura.clientelo.store.order;
+package br.com.alura.clientelo.store.core.entity.order;
 
-import br.com.alura.clientelo.store.customer.Customer;
-import br.com.alura.clientelo.store.orderitem.OrderItem;
-import br.com.alura.clientelo.store.orderitem.OrderItemDiscountType;
+import br.com.alura.clientelo.store.core.entity.customer.Customer;
+import br.com.alura.clientelo.store.core.entity.orderitem.OrderItem;
+import br.com.alura.clientelo.store.core.entity.orderitem.OrderItemDiscountType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 

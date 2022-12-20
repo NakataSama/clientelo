@@ -1,5 +1,7 @@
 package br.com.alura.clientelo.store.order;
 
+import br.com.alura.clientelo.store.core.entity.order.Order;
+import br.com.alura.clientelo.store.core.usecase.order.OrderService;
 import br.com.alura.clientelo.store.order.dto.CreateOrderRequest;
 import br.com.alura.clientelo.store.order.dto.FindAllOrdersResponse;
 import br.com.alura.clientelo.store.order.dto.FindOrderResponse;

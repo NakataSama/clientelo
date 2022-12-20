@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.store.customer;
+package br.com.alura.clientelo.store.core.entity.customer;
 
 import jakarta.persistence.Embeddable;
 

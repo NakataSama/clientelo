@@ -1,7 +1,7 @@
-package br.com.alura.clientelo.store.orderitem;
+package br.com.alura.clientelo.store.core.entity.orderitem;
 
-import br.com.alura.clientelo.store.order.Order;
-import br.com.alura.clientelo.store.product.Product;
+import br.com.alura.clientelo.store.core.entity.order.Order;
+import br.com.alura.clientelo.store.core.entity.product.Product;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

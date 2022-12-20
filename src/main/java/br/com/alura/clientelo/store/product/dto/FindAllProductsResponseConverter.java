@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.store.product.dto;
 
-import br.com.alura.clientelo.store.product.Product;
+import br.com.alura.clientelo.store.core.entity.product.Product;
 
 public class FindAllProductsResponseConverter {
 

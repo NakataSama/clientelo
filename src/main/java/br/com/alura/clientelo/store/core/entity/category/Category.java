@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.store.category;
+package br.com.alura.clientelo.store.core.entity.category;
 
 import jakarta.persistence.*;
 import java.util.Objects;
@@ -12,7 +12,7 @@ public class Category {
     private Long id;
 
     private String name;
-    private boolean active = true;
+    private CategoryStatus active = CategoryStatus.ACTIVE;
 
     public Category() {}
 
@@ -37,10 +37,10 @@ public class Category {
     }
 
     public boolean isActive() {
-        return active;
+        return this.active.equals(CategoryStatus.ACTIVE);
     }
 
-    public void setActive(boolean active) {
+    public void setActive(CategoryStatus active) {
         this.active = active;
     }
 
@@ -67,7 +67,7 @@ public class Category {
     }
 
     public Category changeStatus() {
-        this.active = !isActive();
+        this.active = active.equals(CategoryStatus.ACTIVE) ? CategoryStatus.INACTIVE : CategoryStatus.ACTIVE;
         return this;
     }
 }

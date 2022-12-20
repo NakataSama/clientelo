@@ -1,5 +1,7 @@
 package br.com.alura.clientelo.store.product;
 
+import br.com.alura.clientelo.store.core.entity.product.Product;
+import br.com.alura.clientelo.store.core.usecase.product.ProductService;
 import br.com.alura.clientelo.store.product.dto.CreateProductRequest;
 import br.com.alura.clientelo.store.product.dto.EditProductRequest;
 import br.com.alura.clientelo.store.product.dto.FindAllProductsResponse;
