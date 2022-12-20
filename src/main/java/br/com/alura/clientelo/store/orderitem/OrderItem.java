@@ -34,13 +34,13 @@ public class OrderItem {
 
     public OrderItem() {}
 
-    public OrderItem(Integer quantity, Order order, Product product, OrderItemDiscountType orderItemDiscountType) {
+    public OrderItem(Integer quantity, Order order, Product product) {
         this.quantity = quantity;
         this.order = order;
         this.product = product;
-        this.orderItemDiscountType = orderItemDiscountType;
         this.price = product.getPrice().multiply(BigDecimal.valueOf(quantity));
-        applyDiscount(orderItemDiscountType);
+        this.orderItemDiscountType = OrderItemDiscountType.NONE;
+        this.discount = orderItemDiscountType.getValue();
     }
 
     public Long getId() {
@@ -116,13 +116,13 @@ public class OrderItem {
         return Objects.hash(id, price, quantity, order, product, discount, orderItemDiscountType);
     }
 
-    public void applyDiscount(OrderItemDiscountType discountType) {
-        this.discount = discountType.getValue();
-        this.orderItemDiscountType = discountType;
+    public void applyDiscount(OrderItemDiscountType discountToBeApplied) {
 
-        if (discountType.equals(OrderItemDiscountType.QUANTITY) ||
-                discountType.equals(OrderItemDiscountType.SALE)) {
+        if ((discountToBeApplied.equals(OrderItemDiscountType.QUANTITY)
+                || discountToBeApplied.equals(OrderItemDiscountType.SALE)) && !orderItemDiscountType.equals(discountToBeApplied)) {
 
+            this.orderItemDiscountType = discountToBeApplied;
+            this.discount = discount.add(discountToBeApplied.getValue());
             BigDecimal discountedPrice = price.multiply(discount);
             this.price = price.subtract(discountedPrice);
         }

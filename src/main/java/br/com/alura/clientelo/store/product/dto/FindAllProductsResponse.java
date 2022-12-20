@@ -2,7 +2,7 @@ package br.com.alura.clientelo.store.product.dto;
 
 import java.math.BigDecimal;
 
-public class GetAllProductsResponse {
+public class FindAllProductsResponse {
 
     private final String name;
     private final BigDecimal price;
@@ -11,7 +11,7 @@ public class GetAllProductsResponse {
     private final Long categoryId;
     private final String categoryName;
 
-    public GetAllProductsResponse(String name, BigDecimal price, String description, Integer itemsInStock, Long categoryId, String categoryName) {
+    public FindAllProductsResponse(String name, BigDecimal price, String description, Integer itemsInStock, Long categoryId, String categoryName) {
         this.name = name;
         this.price = price;
         this.description = description;

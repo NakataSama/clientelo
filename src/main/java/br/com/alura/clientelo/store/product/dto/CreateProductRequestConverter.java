@@ -4,7 +4,7 @@ import br.com.alura.clientelo.store.product.Product;
 
 public class CreateProductRequestConverter {
 
-    public Product convert(CreateProductRequest request) {
+    public Product toProduct(CreateProductRequest request) {
         return new Product(
                 request.getName(),
                 request.getPrice(),

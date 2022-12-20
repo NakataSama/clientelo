@@ -12,11 +12,9 @@ import br.com.alura.clientelo.store.customer.Customer;
 import br.com.alura.clientelo.store.customer.CustomerRepository;
 import br.com.alura.clientelo.store.customer.vo.LoyalCustomersVO;
 import br.com.alura.clientelo.store.customer.vo.MostProfitableCustomersVO;
-import br.com.alura.clientelo.store.order.OrderDiscountType;
 import br.com.alura.clientelo.store.order.Order;
 import br.com.alura.clientelo.store.order.OrderRepository;
 import br.com.alura.clientelo.store.orderitem.OrderItem;
-import br.com.alura.clientelo.store.orderitem.OrderItemDiscountType;
 import br.com.alura.clientelo.store.product.Product;
 import br.com.alura.clientelo.store.product.ProductRepository;
 import br.com.alura.clientelo.store.product.vo.TopSellingProductsVO;
@@ -142,15 +140,14 @@ public class StoreDatabaseUtil {
     }
 
     private void generateOrders(int number) {
-        List<Customer> customers = (List<Customer>) customerRepository.findAll();
-        List<Product> products = (List<Product>) productRepository.findAll();
+        List<Customer> customers = customerRepository.findAll();
+        List<Product> products = productRepository.findAll();
         List<Order> orders = new ArrayList<>();
 
         for (int i = 0; i < number; i++) {
             Order order = new Order(
                     LocalDate.now(),
-                    customers.get(ThreadLocalRandom.current().nextInt(customers.size())),
-                    OrderDiscountType.NONE
+                    customers.get(ThreadLocalRandom.current().nextInt(customers.size()))
             );
 
             List<OrderItem> items = new ArrayList<>();
@@ -158,14 +155,13 @@ public class StoreDatabaseUtil {
                 OrderItem orderItem = new OrderItem(
                         ThreadLocalRandom.current().nextInt(1, 5),
                         order,
-                        products.get(ThreadLocalRandom.current().nextInt(products.size())),
-                        OrderItemDiscountType.NONE
+                        products.get(ThreadLocalRandom.current().nextInt(products.size()))
                 );
 
                 items.add(orderItem);
             }
 
-            order.setItems(items);
+            order.addItems(items);
             orders.add(order);
         }
 

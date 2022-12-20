@@ -10,27 +10,25 @@ import br.com.alura.clientelo.store.product.Product;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class CreateOrderRequestConverter {
 
     public Order toOrder(List<OrderItemsInformation> information, OrderDiscountType discountType, Customer customer, List<Product> products) {
         Order order = new Order(
                 LocalDate.now(),
-                customer,
-                discountType
+                customer
         );
 
         List<OrderItem> items = new ArrayList<>();
 
-        Set<Long> productIds = information.stream().map(OrderItemsInformation::getProductId).collect(Collectors.toSet());
+        List<Long> productIds = information.stream().map(OrderItemsInformation::getProductId).toList();
 
         for (Long id : productIds) {
-            Optional<Product> filteredProduct = products.stream()
+
+            Product filteredProduct = products.stream()
                     .filter(product -> product.getId().equals(id))
-                    .findAny();
+                    .findAny()
+                    .orElseThrow();
 
             Integer quantity = information.stream()
                     .filter(info -> info.getProductId().equals(id))
@@ -38,15 +36,15 @@ public class CreateOrderRequestConverter {
                     .findFirst()
                     .orElseThrow();
 
-            if (filteredProduct.isEmpty())
-                throw new RuntimeException("Invalid product Id.");
-
-            OrderItem orderItem = toOrderItem(quantity, order, filteredProduct.get());
+            OrderItemDiscountType orderItemDiscountType = quantity > 10 ? OrderItemDiscountType.QUANTITY : OrderItemDiscountType.NONE;
+            OrderItem orderItem = toOrderItem(quantity, order, filteredProduct);
+            orderItem.applyDiscount(orderItemDiscountType);
             items.add(orderItem);
         }
 
-        order.setItems(items);
+        order.addItems(items);
         order.applyDiscount(discountType);
+        order.getItems().forEach(orderItem -> orderItem.setOrder(order));
 
         return order;
     }
@@ -55,8 +53,7 @@ public class CreateOrderRequestConverter {
         return new OrderItem(
                 quantity,
                 order,
-                product,
-                quantity > 10 ? OrderItemDiscountType.QUANTITY : OrderItemDiscountType.NONE
+                product
         );
     }
 }

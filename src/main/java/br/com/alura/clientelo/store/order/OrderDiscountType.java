@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public enum OrderDiscountType {
     LOYALTY(BigDecimal.valueOf(0.05)),
-    NONE(BigDecimal.ONE);
+    NONE(BigDecimal.ZERO);
 
     final BigDecimal value;
 

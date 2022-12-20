@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public enum OrderItemDiscountType {
     QUANTITY(BigDecimal.valueOf(0.10)),
     SALE(BigDecimal.valueOf(0.20)),
-    NONE(BigDecimal.ONE);
+    NONE(BigDecimal.ZERO);
 
     final BigDecimal value;
 

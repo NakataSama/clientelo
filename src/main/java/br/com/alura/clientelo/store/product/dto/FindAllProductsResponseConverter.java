@@ -2,10 +2,10 @@ package br.com.alura.clientelo.store.product.dto;
 
 import br.com.alura.clientelo.store.product.Product;
 
-public class GetAllProductsResponseConverter {
+public class FindAllProductsResponseConverter {
 
-    public GetAllProductsResponse from(Product product) {
-        return new GetAllProductsResponse(
+    public FindAllProductsResponse from(Product product) {
+        return new FindAllProductsResponse(
                 product.getName(),
                 product.getPrice(),
                 product.getDescription(),
