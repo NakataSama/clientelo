@@ -5,9 +5,9 @@ import br.com.alura.clientelo.store.core.usecase.product.impl.CreateProductUseCa
 import br.com.alura.clientelo.store.core.usecase.product.impl.EditProductUseCase;
 import br.com.alura.clientelo.store.core.usecase.product.impl.FindAllProductsUseCase;
 import br.com.alura.clientelo.store.core.usecase.product.impl.FindProductByIdUseCase;
-import br.com.alura.clientelo.store.product.dto.CreateProductRequest;
-import br.com.alura.clientelo.store.product.dto.EditProductRequest;
-import br.com.alura.clientelo.store.product.dto.FindAllProductsResponse;
+import br.com.alura.clientelo.store.adapter.controller.product.dto.CreateProductRequest;
+import br.com.alura.clientelo.store.adapter.controller.product.dto.EditProductRequest;
+import br.com.alura.clientelo.store.adapter.controller.product.dto.FindAllProductsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

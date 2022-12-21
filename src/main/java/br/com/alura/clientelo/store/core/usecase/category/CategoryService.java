@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.store.core.usecase.category;
 
-import br.com.alura.clientelo.store.category.dto.CreateCategoryRequest;
-import br.com.alura.clientelo.store.category.vo.SalesPerCategoryVO;
+import br.com.alura.clientelo.store.adapter.controller.category.dto.CreateCategoryRequest;
+import br.com.alura.clientelo.store.infra.repository.category.vo.SalesPerCategoryVO;
 import br.com.alura.clientelo.store.core.entity.category.Category;
 import br.com.alura.clientelo.store.core.usecase.category.impl.CreateCategoryUseCase;
 import br.com.alura.clientelo.store.core.usecase.category.impl.EditCategoryStatusUseCase;

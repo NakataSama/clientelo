@@ -1,9 +1,9 @@
 package br.com.alura.clientelo.store.core.usecase.product.impl;
 
 import br.com.alura.clientelo.store.core.entity.product.Product;
-import br.com.alura.clientelo.store.product.ProductRepository;
-import br.com.alura.clientelo.store.product.dto.FindAllProductsResponse;
-import br.com.alura.clientelo.store.product.dto.FindAllProductsResponseConverter;
+import br.com.alura.clientelo.store.infra.repository.product.ProductRepository;
+import br.com.alura.clientelo.store.adapter.controller.product.dto.FindAllProductsResponse;
+import br.com.alura.clientelo.store.adapter.controller.product.dto.FindAllProductsResponseConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

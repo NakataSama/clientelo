@@ -1,8 +1,8 @@
 package br.com.alura.clientelo.store.core.usecase.product.impl;
 
 import br.com.alura.clientelo.store.core.entity.product.Product;
-import br.com.alura.clientelo.store.product.ProductRepository;
-import br.com.alura.clientelo.store.product.dto.EditProductRequest;
+import br.com.alura.clientelo.store.infra.repository.product.ProductRepository;
+import br.com.alura.clientelo.store.adapter.controller.product.dto.EditProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

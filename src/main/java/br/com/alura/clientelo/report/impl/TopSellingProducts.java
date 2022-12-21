@@ -4,7 +4,7 @@ import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.TopSellingProductsResult;
-import br.com.alura.clientelo.store.product.vo.TopSellingProductsVO;
+import br.com.alura.clientelo.store.infra.repository.product.vo.TopSellingProductsVO;
 
 import java.util.ArrayList;
 import java.util.Comparator;

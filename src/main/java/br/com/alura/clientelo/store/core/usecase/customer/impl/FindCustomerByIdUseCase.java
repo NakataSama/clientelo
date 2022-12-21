@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.store.core.usecase.customer.impl;
 
 import br.com.alura.clientelo.store.core.entity.customer.Customer;
-import br.com.alura.clientelo.store.customer.CustomerRepository;
+import br.com.alura.clientelo.store.infra.repository.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

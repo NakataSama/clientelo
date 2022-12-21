@@ -4,7 +4,7 @@ import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.LoyalCustomersResult;
-import br.com.alura.clientelo.store.customer.vo.LoyalCustomersVO;
+import br.com.alura.clientelo.store.infra.repository.customer.vo.LoyalCustomersVO;
 
 import java.util.LinkedHashMap;
 import java.util.List;

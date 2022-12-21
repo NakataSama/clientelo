@@ -4,7 +4,7 @@ import br.com.alura.clientelo.report.ReportOrderDTO;
 import br.com.alura.clientelo.report.Report;
 import br.com.alura.clientelo.report.result.Result;
 import br.com.alura.clientelo.report.result.impl.MostProfitableCustomersResult;
-import br.com.alura.clientelo.store.customer.vo.MostProfitableCustomersVO;
+import br.com.alura.clientelo.store.infra.repository.customer.vo.MostProfitableCustomersVO;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
