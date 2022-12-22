@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.fileprocessor;
 
-import br.com.alura.clientelo.report.ReportOrderDTO;
+import br.com.alura.clientelo.reportgenerator.fileprocessor.FileProcessor;
+import br.com.alura.clientelo.reportgenerator.report.ReportOrderDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

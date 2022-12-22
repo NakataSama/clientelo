@@ -1,8 +1,9 @@
 package br.com.alura.clientelo.report;
 
-import br.com.alura.clientelo.fileprocessor.FileProcessor;
-import br.com.alura.clientelo.report.impl.TopSellingProducts;
-import br.com.alura.clientelo.report.result.Result;
+import br.com.alura.clientelo.reportgenerator.fileprocessor.FileProcessor;
+import br.com.alura.clientelo.reportgenerator.report.ReportOrderDTO;
+import br.com.alura.clientelo.reportgenerator.report.impl.TopSellingProducts;
+import br.com.alura.clientelo.reportgenerator.report.result.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,9 +1,9 @@
 package br.com.alura.clientelo.util;
 
-import br.com.alura.clientelo.report.impl.LoyalCustomers;
-import br.com.alura.clientelo.report.impl.MostProfitableCustomers;
-import br.com.alura.clientelo.report.impl.SalesPerCategory;
-import br.com.alura.clientelo.report.impl.TopSellingProducts;
+import br.com.alura.clientelo.reportgenerator.report.impl.LoyalCustomers;
+import br.com.alura.clientelo.reportgenerator.report.impl.MostProfitableCustomers;
+import br.com.alura.clientelo.reportgenerator.report.impl.SalesPerCategory;
+import br.com.alura.clientelo.reportgenerator.report.impl.TopSellingProducts;
 import br.com.alura.clientelo.store.core.entity.category.Category;
 import br.com.alura.clientelo.store.infra.repository.category.CategoryRepository;
 import br.com.alura.clientelo.store.infra.repository.category.vo.SalesPerCategoryVO;

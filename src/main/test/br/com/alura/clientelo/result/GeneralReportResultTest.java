@@ -1,10 +1,10 @@
 package br.com.alura.clientelo.result;
 
-import br.com.alura.clientelo.fileprocessor.FileProcessor;
-import br.com.alura.clientelo.report.ReportOrderDTO;
+import br.com.alura.clientelo.reportgenerator.fileprocessor.FileProcessor;
+import br.com.alura.clientelo.reportgenerator.report.ReportOrderDTO;
 import br.com.alura.clientelo.mock.ResultMocks;
-import br.com.alura.clientelo.report.impl.GeneralReport;
-import br.com.alura.clientelo.report.result.impl.GeneralReportResult;
+import br.com.alura.clientelo.reportgenerator.report.impl.GeneralReport;
+import br.com.alura.clientelo.reportgenerator.report.result.impl.GeneralReportResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
