@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.store.adapter.controller.customer.dto;
 
 import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -41,7 +42,16 @@ public class CreateCustomerRequest {
     @Size(min = 2)
     private String state;
 
-    public CreateCustomerRequest(String name, String documentNumber, String phone, String street, String number, String additionalInfo, String district, String city, String state) {
+    @NotNull
+    @Email
+    private String email;
+
+    @NotNull
+    @Size(min = 3)
+    private String password;
+
+
+    public CreateCustomerRequest(String name, String documentNumber, String phone, String street, String number, String additionalInfo, String district, String city, String state, String email, String password) {
         this.name = name;
         this.documentNumber = documentNumber;
         this.phone = phone;
@@ -51,6 +61,8 @@ public class CreateCustomerRequest {
         this.district = district;
         this.city = city;
         this.state = state;
+        this.email = email;
+        this.password = password;
     }
 
     public String getName() {
@@ -87,5 +99,13 @@ public class CreateCustomerRequest {
 
     public String getState() {
         return state;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

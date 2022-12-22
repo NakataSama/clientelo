@@ -131,7 +131,9 @@ public class StoreDatabaseUtil {
                     "Customer " + (i + 1),
                     String.format("%s.%s", (i + 10), (i + 20)),
                     String.format("%s-%s", (i + 50), (i + 60)),
-                    address
+                    address,
+                    "email",
+                    "password"
             );
 
             customers.add(customer);

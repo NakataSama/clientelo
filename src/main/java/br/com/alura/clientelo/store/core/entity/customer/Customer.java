@@ -2,6 +2,7 @@ package br.com.alura.clientelo.store.core.entity.customer;
 
 
 import br.com.alura.clientelo.store.core.entity.order.Order;
+import br.com.alura.clientelo.store.core.entity.user.User;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -25,13 +26,29 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Order> orders;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Deprecated
     public Customer() {}
 
-    public Customer(String name, String documentNumber, String phone, Address address) {
+    public Customer(String name, String documentNumber, String phone, Address address, String email, String password) {
         this.name = name;
         this.documentNumber = documentNumber;
         this.phone = phone;
         this.address = address;
+        this.user = new User(email, password);
+    }
+
+    public Customer(Long id, String name, String documentNumber, String phone, Address address, List<Order> orders, User user) {
+        this.id = id;
+        this.name = name;
+        this.documentNumber = documentNumber;
+        this.phone = phone;
+        this.address = address;
+        this.orders = orders;
+        this.user = user;
     }
 
     public Long getId() {
@@ -74,16 +91,24 @@ public class Customer {
         this.address = address;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(documentNumber, customer.documentNumber) && Objects.equals(phone, customer.phone) && Objects.equals(address, customer.address);
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(documentNumber, customer.documentNumber) && Objects.equals(phone, customer.phone) && Objects.equals(address, customer.address) && Objects.equals(orders, customer.orders) && Objects.equals(user, customer.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, documentNumber, phone, address);
+        return Objects.hash(id, name, documentNumber, phone, address, orders, user);
     }
 }

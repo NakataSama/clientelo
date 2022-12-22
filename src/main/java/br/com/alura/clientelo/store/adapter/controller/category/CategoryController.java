@@ -6,6 +6,8 @@ import br.com.alura.clientelo.store.core.entity.category.Category;
 import br.com.alura.clientelo.store.core.usecase.category.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ public class CategoryController {
     private CategoryService service;
 
     @PostMapping
+    @CacheEvict(value = "salesPerCategory", allEntries = true)
     public ResponseEntity<Category> create(@RequestBody @Valid CreateCategoryRequest request) {
         try {
 
@@ -39,6 +42,7 @@ public class CategoryController {
     }
 
     @PatchMapping("/status/{id}")
+    @CacheEvict(value = "salesPerCategory", allEntries = true)
     public ResponseEntity<Category> editStatus(@PathVariable Long id) {
         try {
             Category category = service.editStatus(id);
@@ -68,6 +72,7 @@ public class CategoryController {
     }
 
     @GetMapping("/sales")
+    @Cacheable("salesPerCategory")
     public ResponseEntity<List<SalesPerCategoryVO>> getSalesPerCategory() {
         try {
             List<SalesPerCategoryVO> salesPerCategory = service.getSalesPerCategory();

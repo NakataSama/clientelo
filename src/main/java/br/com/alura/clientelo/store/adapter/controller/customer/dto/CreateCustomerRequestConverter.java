@@ -16,7 +16,9 @@ public class CreateCustomerRequestConverter {
                         request.getDistrict(),
                         request.getCity(),
                         request.getState()
-                )
+                ),
+                request.getEmail(),
+                request.getPassword()
         );
     }
 }
