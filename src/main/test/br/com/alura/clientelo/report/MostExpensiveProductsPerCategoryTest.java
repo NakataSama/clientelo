@@ -1,9 +1,9 @@
 package br.com.alura.clientelo.report;
 
-import br.com.alura.clientelo.reportgenerator.fileprocessor.FileProcessor;
-import br.com.alura.clientelo.reportgenerator.report.ReportOrderDTO;
-import br.com.alura.clientelo.reportgenerator.report.impl.MostExpensiveProductsPerCategory;
-import br.com.alura.clientelo.reportgenerator.report.result.Result;
+import br.com.alura.clientelo.reportgenerator.infra.fileprocessor.FileProcessor;
+import br.com.alura.clientelo.reportgenerator.domain.report.dto.ReportOrderDTO;
+import br.com.alura.clientelo.reportgenerator.domain.report.impl.MostExpensiveProductsPerCategory;
+import br.com.alura.clientelo.reportgenerator.domain.result.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.store.infra.repository.product;
 
-import br.com.alura.clientelo.store.core.entity.product.Product;
+import br.com.alura.clientelo.store.domain.product.Product;
 import br.com.alura.clientelo.store.infra.repository.product.vo.TopSellingProductsVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

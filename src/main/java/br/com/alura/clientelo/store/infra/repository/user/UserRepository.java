@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.store.infra.repository.user;
 
-import br.com.alura.clientelo.store.core.entity.user.User;
+import br.com.alura.clientelo.store.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;

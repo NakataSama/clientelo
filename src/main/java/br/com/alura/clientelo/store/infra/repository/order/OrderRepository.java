@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.store.infra.repository.order;
 
-import br.com.alura.clientelo.store.core.entity.order.Order;
+import br.com.alura.clientelo.store.domain.order.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

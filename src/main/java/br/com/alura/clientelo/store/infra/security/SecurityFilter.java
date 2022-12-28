@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.store.infra.security;
 
-import br.com.alura.clientelo.store.core.usecase.authentication.TokenService;
+import br.com.alura.clientelo.store.app.service.authentication.TokenService;
 import br.com.alura.clientelo.store.infra.repository.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
